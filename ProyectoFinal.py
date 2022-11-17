@@ -4,24 +4,24 @@
 import os
 import math as mt
 
-os.system("clear")
-e=eval(input("Ingrese el modulo elastico: "))
+os.system("cls")
+e=eval(input("Ingrese el modulo elastico (pa): "))
 v=eval(input("Ingrese el coeficiente de poison: "))
 G=(e)/(2*(1+v)) #Modulo de rigidez
 
 #Componentes de esfuerzo (Normales y cortantes)
 #La idea es poner un entry (Tkinter) en cada caso y que el usuario las llene todas
 
-rx=eval(input("Ingrese el esfuerzo normal en x= "))
-ry=eval(input("Ingrese el esfuerzo normal en y= "))
-rz=eval(input("Ingrese el esfuerzo normal en z= "))
+rx=eval(input("Ingrese el esfuerzo normal en x (Mpa)= "))
+ry=eval(input("Ingrese el esfuerzo normal en y (Mpa)= "))
+rz=eval(input("Ingrese el esfuerzo normal en z (Mpa)= "))
 
-txy=eval(input("Ingrese el esfuerzo cortante en xy= "))
-txz=eval(input("Ingrese el esfuerzo cortante en xz= "))
-tyx=eval(input("Ingrese el esfuerzo cortante en yx= "))
-tyz=eval(input("Ingrese el esfuerzo cortante en yz= "))
-tzx=eval(input("Ingrese el esfuerzo cortante en zx= "))
-tzy=eval(input("Ingrese el esfuerzo cortante en zy= "))
+txy=eval(input("Ingrese el esfuerzo cortante en xy (Mpa)= "))
+txz=eval(input("Ingrese el esfuerzo cortante en xz (Mpa)= "))
+tyx=eval(input("Ingrese el esfuerzo cortante en yx (Mpa)= "))
+tyz=eval(input("Ingrese el esfuerzo cortante en yz (Mpa)= "))
+tzx=eval(input("Ingrese el esfuerzo cortante en zx (Mpa)= "))
+tzy=eval(input("Ingrese el esfuerzo cortante en zy (Mpa)= "))
 
 #Calculo de las deformaciones
 
@@ -41,10 +41,10 @@ i=str(input("Ingrese el valor de i= "))
 j=str(input("Ingrese el valor de j= "))
 
 if (i=="x" and j=="y"):
-    tetape=mt.atan((txy*2)/(rx-ry))/2
-    tetapd=mt.atan((ecxy*2)/(ex-ey))/2
-    tetase=mt.atan(-(rx-ry)/(txy*2))/2  
-    tetasd=mt.atan(-(ex-ey)/(ecxy*2))/2
+    tetape=(mt.atan((txy*2)/(rx-ry))/2)
+    tetapd=(mt.atan((ecxy*2)/(ex-ey))/2)
+    tetase=(mt.atan(-(rx-ry)/(txy*2))/2)
+    tetasd=(mt.atan(-(ex-ey)/(ecxy*2))/2)
     
     rin=((rx+ry)/2)+((rx-ry)/2)*mt.cos(2*tetape)+(txy)*mt.sin(2*tetape)
     rjn=((rx+ry)/2)-((rx-ry)/2)*mt.cos(2*tetape)-(txy)*mt.sin(2*tetape)
@@ -62,10 +62,10 @@ if (i=="x" and j=="y"):
 
 elif((i=="x") and (j=="z")):
     
-    tetape=mt.atan((txz*2)/(rx-rz))/2
-    tetapd=mt.atan((ecxz*2)/(ex-ez))/2
-    tetase=mt.atan(-(rx-rz)/(txz*2))/2
-    tetasd=mt.atan(-(ex-ez)/(ecxz*2))/2
+    tetape=(mt.atan((txz*2)/(rx-rz))/2)
+    tetapd=(mt.atan((ecxz*2)/(ex-ez))/2)
+    tetase=(mt.atan(-(rx-rz)/(txz*2))/2)
+    tetasd=(mt.atan(-(ex-ez)/(ecxz*2))/2)
     
     rin=((rx+rz)/2)+((rx-rz)/2)*mt.cos(2*tetape)+(txz)*mt.sin(2*tetape)
     rjn=((rx+rz)/2)-((rx-rz)/2)*mt.cos(2*tetape)-(txz)*mt.sin(2*tetape)
@@ -83,10 +83,10 @@ elif((i=="x") and (j=="z")):
     
 elif((i=="y") and (j=="x")):
     
-    tetape=mt.atan((tyx*2)/(ry-rx))/2
-    tetapd=mt.atan((ecyx*2)/(ey-ex))/2
-    tetase=mt.atan(-(ry-rx)/(tyx*2))/2
-    tetasd=mt.atan(-(ey-ex)/(ecyx*2))/2
+    tetape=(mt.atan((tyx*2)/(ry-rx))/2)
+    tetapd=(mt.atan((ecyx*2)/(ey-ex))/2)
+    tetase=(mt.atan(-(ry-rx)/(tyx*2))/2)
+    tetasd=(mt.atan(-(ey-ex)/(ecyx*2))/2)
     
     rin=((ry+rx)/2)+((ry-rx)/2)*mt.cos(2*tetape)+(tyx)*mt.sin(2*tetape)
     rjn=((ry+rx)/2)-((ry-rx)/2)*mt.cos(2*tetape)-(tyx)*mt.sin(2*tetape)
@@ -104,10 +104,10 @@ elif((i=="y") and (j=="x")):
     
 elif((i=="y") and (j=="z")):
     
-    tetape=mt.atan((tyz*2)/(ry-rz))/2
-    tetapd=mt.atan((ecyz*2)/(ey-ez))/2
-    tetase=mt.atan(-(ry-rz)/(tyz*2))/2
-    tetasd=mt.atan(-(ey-ez)/(ecyz*2))/2  
+    tetape=(mt.atan((tyz*2)/(ry-rz))/2)
+    tetapd=(mt.atan((ecyz*2)/(ey-ez))/2)
+    tetase=(mt.atan(-(ry-rz)/(tyz*2))/2)
+    tetasd=(mt.atan(-(ey-ez)/(ecyz*2))/2)  
     
     rin=((ry+rz)/2)+(((ry-rz)/2)*mt.cos(2*tetape))+(tyz)*mt.sin(2*tetape)
     rjn=((ry+rz)/2)-(((ry-rz)/2)*mt.cos(2*tetape))-(tyz)*mt.sin(2*tetape)
@@ -125,10 +125,10 @@ elif((i=="y") and (j=="z")):
     
 elif((i=="z") and (j=="x")):
     
-    tetape=mt.atan((tzx*2)/(rz-rx))/2
-    tetapd=mt.atan((eczx*2)/(ez-ex))/2
-    tetase=mt.atan(-(rz-rx)/(tzx*2))/2
-    tetasd=mt.atan(-(ez-ex)/(eczx*2))/2
+    tetape=(mt.atan((tzx*2)/(rz-rx))/2)
+    tetapd=(mt.atan((eczx*2)/(ez-ex))/2)
+    tetase=(mt.atan(-(rz-rx)/(tzx*2))/2)
+    tetasd=(mt.atan(-(ez-ex)/(eczx*2))/2)
     
     rin=((rz+rx)/2)+((rz-rx)/2)*mt.cos(2*tetape)+(tzx)*mt.sin(2*tetape)
     rjn=((rz+rx)/2)-((rz-rx)/2)*mt.cos(2*tetape)-(tzx)*mt.sin(2*tetape)
@@ -146,10 +146,10 @@ elif((i=="z") and (j=="x")):
     
 elif((i=="z") and (j=="y")):
     
-    tetape=mt.atan((tzy*2)/(rz-ry))/2
-    tetapd=mt.atan((eczy*2)/(ez-ey))/2
-    tetase=mt.atan(-(rz-ry)/(tzy*2))/2
-    tetasd=mt.atan(-(ez-ey)/(eczy*2))/2
+    tetape=(mt.atan((tzy*2)/(rz-ry))/2)
+    tetapd=(mt.atan((eczy*2)/(ez-ey))/2)
+    tetase=(mt.atan(-(rz-ry)/(tzy*2))/2)
+    tetasd=(mt.atan(-(ez-ey)/(eczy*2))/2)
     
     rin=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetape)+(tzy)*mt.sin(2*tetape)
     rjn=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetape)-(tzy)*mt.sin(2*tetape)
@@ -167,19 +167,19 @@ elif((i=="z") and (j=="y")):
 
 #  Impresion de los datos
 
-print("El angulo de esfuerzo normal es: {}".format(tetape))
-print("El angulo de esfuerzo cortante es: {}".format(tetase))
-print("El angulo de deformacion normal es: {}".format(tetapd))
-print("El angulo de deformacion cortante es: {}".format(tetasd))
+print("El angulo de esfuerzo normal es (grados): {:1.2f}".format(tetape*(180/mt.pi)))
+print("El angulo de esfuerzo cortante es (grados): {:1.2f}".format(tetase*(180/mt.pi)))
+print("El angulo de deformacion normal es (grados): {:1.2f}".format(tetapd*(180/mt.pi)))
+print("El angulo de deformacion cortante es (grados): {:1.2f}".format(tetasd*(180/mt.pi)))
 
 #ESFUERZOS PRINCIPALES
 
-print("Ri Normal = {:1.2f}".format(rin))
-print("Rj Normal = {:1.2f}".format(rjn))
-print("Tij Normal = {:1.2f}".format(tn))
-print("Ri Cortante = {:1.2f}".format(ric))
-print("Rj Cortante = {:1.2f}".format(rjc))
-print("Tij Cortante = {:1.2f}".format(tc))
+print("Ri Normal (Mpa)= {:1.2f}".format(rin))
+print("Rj Normal (Mpa)= {:1.2f}".format(rjn))
+print("Tij Normal (Mpa)= {:1.2f}".format(tn))
+print("Ri Cortante (Mpa)= {:1.2f}".format(ric))
+print("Rj Cortante (Mpa)= {:1.2f}".format(rjc))
+print("Tij Cortante (Mpa)= {:1.2f}".format(tc))
 
 #DEFORMACIONES PRICIPALES
 
