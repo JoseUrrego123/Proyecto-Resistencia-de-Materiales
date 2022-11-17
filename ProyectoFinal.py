@@ -20,17 +20,62 @@ class Aplicacion:
         Label(marco,text="Ingrese el coeficiente de Poison").grid(row=1,column=0)
         self.po=Entry(marco).grid(row=1,column=1,pady=10,padx=10)
 
+        #Tensor de esfuerzos
         marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Mpa): ")
         marco1.grid(row=2,column=0,pady=20,padx=20)
-        self.me1=Entry(marco1).grid(row=2,column=0,pady=10,padx=10)
-        self.po1=Entry(marco1).grid(row=2,column=1,pady=10,padx=10)
-        self.me1=Entry(marco1).grid(row=2,column=2,pady=10,padx=10)
-        self.po1=Entry(marco1).grid(row=3,column=0,pady=10,padx=10)
-        self.me1=Entry(marco1).grid(row=3,column=1,pady=10,padx=10)
-        self.po1=Entry(marco1).grid(row=3,column=2,pady=10,padx=10)
-        self.me1=Entry(marco1).grid(row=4,column=0,pady=10,padx=10)
-        self.po1=Entry(marco1).grid(row=4,column=1,pady=10,padx=10)
-        self.me1=Entry(marco1).grid(row=4,column=2,pady=10,padx=10)
+
+        #Primera fila del tensor de esfuerzos
+        Label(marco1,text="σx").grid(row=2,column=0)
+        self.rx=Entry(marco1).grid(row=3,column=0,pady=10,padx=10)
+        Label(marco1,text="𝛕xy").grid(row=2,column=1)
+        self.txy=Entry(marco1).grid(row=3,column=1,pady=10,padx=10)
+        Label(marco1,text="𝛕xz").grid(row=2,column=2)
+        self.txz=Entry(marco1).grid(row=3,column=2,pady=10,padx=10)
+
+        #Segunda fila del tensor de esfuerzos
+        Label(marco1,text="𝛕yx").grid(row=4,column=0)
+        self.tyx=Entry(marco1).grid(row=5,column=0,pady=10,padx=10)
+        Label(marco1,text="σy").grid(row=4,column=1)
+        self.ry=Entry(marco1).grid(row=5,column=1,pady=10,padx=10)
+        Label(marco1,text="𝛕yz").grid(row=4,column=2)
+        self.tyz=Entry(marco1).grid(row=5,column=2,pady=10,padx=10)
+
+        #Tercer fila del tensor de esfuerzos
+        Label(marco1,text="𝛕zx").grid(row=6,column=0)
+        self.tzx=Entry(marco1).grid(row=7,column=0,pady=10,padx=10)
+        Label(marco1,text="𝛕zy").grid(row=6,column=1)
+        self.tzy=Entry(marco1).grid(row=7,column=1,pady=10,padx=10)
+        Label(marco1,text="σz").grid(row=6,column=2)
+        self.rz=Entry(marco1).grid(row=7,column=2,pady=10,padx=10)
+
+        #Tensor de deformaciones
+        marco2=LabelFrame(self.ventana,text="Tensor de deformaciones (m/m): ")
+        marco2.grid(row=8,column=0,pady=20,padx=20)
+
+        #Primera fila del tensor de deformaciones
+        Label(marco2,text="εx").grid(row=8,column=0)
+        self.ex=Entry(marco2).grid(row=9,column=0,pady=10,padx=10)
+        Label(marco2,text="γxy/2").grid(row=8,column=1)
+        self.ecxy=Entry(marco2).grid(row=9,column=1,pady=10,padx=10)
+        Label(marco2,text="γxz/2").grid(row=8,column=2)
+        self.ecxz=Entry(marco2).grid(row=9,column=2,pady=10,padx=10)
+
+        #Segunda fila del tensor de deformaciones
+        Label(marco2,text="γyx/2").grid(row=10,column=0)
+        self.ecyx=Entry(marco2).grid(row=11,column=0,pady=10,padx=10)
+        Label(marco2,text="εy").grid(row=10,column=1)
+        self.ey=Entry(marco2).grid(row=11,column=1,pady=10,padx=10)
+        Label(marco2,text="γyz/2").grid(row=10,column=2)
+        self.ecyz=Entry(marco2).grid(row=11,column=2,pady=10,padx=10)
+
+        #Tercer fila del tensor de esfuerzos
+        Label(marco2,text="γzx/2").grid(row=12,column=0)
+        self.eczx=Entry(marco2).grid(row=13,column=0,pady=10,padx=10)
+        Label(marco2,text="γzy/2").grid(row=12,column=1)
+        self.eczy=Entry(marco2).grid(row=13,column=1,pady=10,padx=10)
+        Label(marco2,text="εz").grid(row=12,column=2)
+        self.ez=Entry(marco2).grid(row=13,column=2,pady=10,padx=10)      
+
         
 
     
