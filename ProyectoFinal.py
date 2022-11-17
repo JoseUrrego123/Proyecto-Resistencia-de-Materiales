@@ -1,7 +1,50 @@
 #Programa que realiza la transformacion de esfuerzos y deformaciones mediante tensores con el objetivos
 #de determinar en que angulos y magnitudes ocurren las deformaciones y esfuerzos principales
 
-import os
+
+#Interfaz de usuario
+
+import tkinter as tk #Se importa para crear la ventana
+from tkinter import * #Se importa para crear el Label frame
+from tkinter import messagebox as mb # Se importa para crear los cuadros emergentes
+
+
+class Aplicacion: 
+    def __init__(self,ventana):
+        self.ventana=ventana
+        self.ventana.title("Calculo de esfuerzos y deformaciones principales mediante tensores")
+        marco=LabelFrame(self.ventana,text="Introduzca las constantes")
+        marco.grid(row=0,column=0,pady=20,padx=20)
+        Label(marco,text="Ingrese el módulo elástico (Gpa): ").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
+        self.me=Entry(marco).grid(row=0,column=1,pady=10,padx=10)
+        Label(marco,text="Ingrese el coeficiente de Poison").grid(row=1,column=0)
+        self.po=Entry(marco).grid(row=1,column=1,pady=10,padx=10)
+
+        marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Mpa): ")
+        marco1.grid(row=2,column=0,pady=20,padx=20)
+        self.me1=Entry(marco1).grid(row=2,column=0,pady=10,padx=10)
+        self.po1=Entry(marco1).grid(row=2,column=1,pady=10,padx=10)
+        self.me1=Entry(marco1).grid(row=2,column=2,pady=10,padx=10)
+        self.po1=Entry(marco1).grid(row=3,column=0,pady=10,padx=10)
+        self.me1=Entry(marco1).grid(row=3,column=1,pady=10,padx=10)
+        self.po1=Entry(marco1).grid(row=3,column=2,pady=10,padx=10)
+        self.me1=Entry(marco1).grid(row=4,column=0,pady=10,padx=10)
+        self.po1=Entry(marco1).grid(row=4,column=1,pady=10,padx=10)
+        self.me1=Entry(marco1).grid(row=4,column=2,pady=10,padx=10)
+        
+
+    
+
+
+if __name__=="__main__":
+    ventana=Tk()
+    aplicacion=Aplicacion(ventana)
+    ventana.mainloop()
+
+
+#Codigo plano
+
+'''import os
 import math as mt
 
 os.system("cls")
@@ -188,4 +231,4 @@ print("Ej Normal = {:1.2f}".format(ejn))
 print("Gij Normal = {:1.2f}".format(gn))
 print("Ei Cortante = {:1.2f}".format(eic))
 print("Ej Cortante = {:1.2f}".format(ejc))
-print("Gij Cortante = {:1.2f}".format(gc))
+print("Gij Cortante = {:1.2f}".format(gc))'''
