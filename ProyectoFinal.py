@@ -16,11 +16,11 @@ class Aplicacion:
         marco=LabelFrame(self.ventana,text="Introduzca las constantes")
         marco.grid(row=0,column=0,pady=20,padx=20)
         Label(marco,text="Ingrese el módulo elástico (Pa): ").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
-        self.dato1=StringVar()
+        self.dato1=IntVar()
         self.me=Entry(marco,textvariable=self.dato1).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
         #self.me=Entry(marco).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
         Label(marco,text="Ingrese el coeficiente de Poison").grid(row=1,column=0)
-        self.dato2=StringVar()
+        self.dato2=IntVar()
         self.po=Entry(marco,textvariable=self.dato2).grid(row=1,column=1,pady=10,padx=10) #Coeficiente de Poison
         #self.po=Entry(marco).grid(row=1,column=1,pady=10,padx=10) #Coeficiente de Poison
 
@@ -30,38 +30,38 @@ class Aplicacion:
 
         #Primera fila del tensor de esfuerzos
         Label(marco1,text="σx").grid(row=2,column=0)
-        self.dato3=StringVar()
+        self.dato3=IntVar()
         self.rx=Entry(marco1,textvariable=self.dato3).grid(row=3,column=0,pady=10,padx=10)
         Label(marco1,text="𝛕xy").grid(row=2,column=1)
-        self.dato4=StringVar()
+        self.dato4=IntVar()
         self.txy=Entry(marco1,textvariable=self.dato4).grid(row=3,column=1,pady=10,padx=10)
         Label(marco1,text="𝛕xz").grid(row=2,column=2)
-        self.dato5=StringVar()
+        self.dato5=IntVar()
         self.txz=Entry(marco1,textvariable=self.dato5).grid(row=3,column=2,pady=10,padx=10)
 
         #Segunda fila del tensor de esfuerzos
         Label(marco1,text="𝛕yx").grid(row=4,column=0)
-        self.dato6=StringVar()
+        self.dato6=IntVar()
         self.tyx=Entry(marco1,textvariable=self.dato6).grid(row=5,column=0,pady=10,padx=10)
         Label(marco1,text="σy").grid(row=4,column=1)
-        self.dato7=StringVar()
+        self.dato7=IntVar()
         self.ry=Entry(marco1,textvariable=self.dato7).grid(row=5,column=1,pady=10,padx=10)
         Label(marco1,text="𝛕yz").grid(row=4,column=2)
-        self.dato8=StringVar()
+        self.dato8=IntVar()
         self.tyz=Entry(marco1,textvariable=self.dato8).grid(row=5,column=2,pady=10,padx=10)
 
         #Tercer fila del tensor de esfuerzos
         Label(marco1,text="𝛕zx").grid(row=6,column=0)
-        self.dato9=StringVar()
+        self.dato9=IntVar()
         self.tzx=Entry(marco1,textvariable=self.dato9).grid(row=7,column=0,pady=10,padx=10)
         Label(marco1,text="𝛕zy").grid(row=6,column=1)
-        self.dato10=StringVar()
+        self.dato10=IntVar()
         self.tzy=Entry(marco1,textvariable=self.dato10).grid(row=7,column=1,pady=10,padx=10)
         Label(marco1,text="σz").grid(row=6,column=2)
-        self.dato11=StringVar()
+        self.dato11=IntVar()
         self.rz=Entry(marco1,textvariable=self.dato11).grid(row=7,column=2,pady=10,padx=10)
 
-        self.boton1=tk.Button(self.ventana, text="Calcular")
+        self.boton1=tk.Button(self.ventana, text="Calcular", command=self.tensordeformacion())
         self.boton1.grid(row=0, column=1)
 
         marco2=LabelFrame(self.ventana,text="Tensor de deformaciones (m/m): ")
@@ -118,9 +118,9 @@ class Aplicacion:
         v=int(self.dato2.get())
         G=(e)/(2*(1+v)) #Modulo de rigidez 
 
-        rx=int(self.dato3.get())
-        ry=int(self.dato7.get())
-        rz=int(self.dato11.get())
+        rx=self.dato3
+        ry=self.dato7
+        rz=self.dato11
 
         ex=(rx/e)-((v/e)*(ry+rz))
         self.ex.configure(text=ex)
@@ -131,11 +131,11 @@ class Aplicacion:
         ez=(rz/e)-((v/e)*(ry+rx))
         self.ez.configure(text=ez)
 
-        txy=int(self.dato4.get())
+        txy=self.dato4
         ecxy=txy/(2*G)
         self.ecxy.configure(text=ecxy)
 
-        txz=int(self.dato5.get())
+        txz=self.dato5
         ecxz=txz/(2*G)
         self.ecxz.configure(text=ecxz)
 
@@ -146,12 +146,7 @@ class Aplicacion:
         
         
 
-        tyx=int(self.dato6.get())
         
-        tyz=int(self.dato8.get())
-
-        tzx=int(self.dato9.get())
-        tzy=int(self.dato10.get())
         
 
         
@@ -163,10 +158,10 @@ class Aplicacion:
         
         
         
-        ecyx=tyx/(2*G)
+        '''ecyx=tyx/(2*G)
         ecyz=tyz/(2*G)
         eczx=tzx/(2*G)
-        eczy=tzy/(2*G)
+        eczy=tzy/(2*G)'''
 
           
 
