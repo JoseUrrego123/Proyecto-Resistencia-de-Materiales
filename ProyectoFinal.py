@@ -121,12 +121,30 @@ class Aplicacion:
         rx=int(self.dato3.get())
         ry=int(self.dato7.get())
         rz=int(self.dato11.get())
+
         ex=(rx/e)-((v/e)*(ry+rz))
         self.ex.configure(text=ex)
 
+        ey=(ry/e)-((v/e)*(rx+rz))
+        self.ey.configure(text=ey)
+
+        ez=(rz/e)-((v/e)*(ry+rx))
+        self.ez.configure(text=ez)
 
         txy=int(self.dato4.get())
+        ecxy=txy/(2*G)
+        self.ecxy.configure(text=ecxy)
+
         txz=int(self.dato5.get())
+        ecxz=txz/(2*G)
+        self.ecxz.configure(text=ecxz)
+
+
+
+
+
+        
+        
 
         tyx=int(self.dato6.get())
         
@@ -141,10 +159,10 @@ class Aplicacion:
         #Calculo de las deformaciones
 
         
-        ey=(ry/e)-((v/e)*(rx+rz))
-        ez=(rz/e)-((v/e)*(ry+rx))
-        ecxy=txy/(2*G)
-        ecxz=txz/(2*G)
+        
+        
+        
+        
         ecyx=tyx/(2*G)
         ecyz=tyz/(2*G)
         eczx=tzx/(2*G)
