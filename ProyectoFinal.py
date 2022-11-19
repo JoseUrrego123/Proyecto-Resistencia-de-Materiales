@@ -10,19 +10,22 @@ from tkinter import messagebox as mb # Se importa para crear los cuadros emergen
 
 
 class Aplicacion: 
+
     def __init__(self,ventana):
+        
         self.ventana=ventana
         self.ventana.title("Calculo de esfuerzos y deformaciones principales mediante tensores")
         marco=LabelFrame(self.ventana,text="Introduzca las constantes")
         marco.grid(row=0,column=0,pady=20,padx=20)
+
         Label(marco,text="Ingrese el módulo elástico (Pa): ").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
-        self.dato1=IntVar()
-        self.me=Entry(marco,textvariable=self.dato1).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
-        #self.me=Entry(marco).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
+        self.dato1=DoubleVar(value=None)
+        self.me=Entry(marco,textvariable=self.dato1,justify=CENTER).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
+
         Label(marco,text="Ingrese el coeficiente de Poison").grid(row=1,column=0)
-        self.dato2=IntVar()
-        self.po=Entry(marco,textvariable=self.dato2).grid(row=1,column=1,pady=10,padx=10) #Coeficiente de Poison
-        #self.po=Entry(marco).grid(row=1,column=1,pady=10,padx=10) #Coeficiente de Poison
+        self.dato2=DoubleVar(value=None)
+        self.po=Entry(marco,textvariable=self.dato2,justify=CENTER).grid(row=1,column=1,pady=10,padx=10) #Coeficiente de Poison
+
 
         #Tensor de esfuerzos
         marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Mpa): ")
@@ -30,38 +33,44 @@ class Aplicacion:
 
         #Primera fila del tensor de esfuerzos
         Label(marco1,text="σx").grid(row=2,column=0)
-        self.dato3=IntVar()
-        self.rx=Entry(marco1,textvariable=self.dato3).grid(row=3,column=0,pady=10,padx=10)
+        self.dato3=DoubleVar(value=None)
+        self.rx=Entry(marco1,textvariable=self.dato3,justify=CENTER).grid(row=3,column=0,pady=10,padx=10)
+
         Label(marco1,text="𝛕xy").grid(row=2,column=1)
-        self.dato4=IntVar()
-        self.txy=Entry(marco1,textvariable=self.dato4).grid(row=3,column=1,pady=10,padx=10)
+        self.dato4=DoubleVar(value=None)
+        self.txy=Entry(marco1,textvariable=self.dato4,justify=CENTER).grid(row=3,column=1,pady=10,padx=10)
+
         Label(marco1,text="𝛕xz").grid(row=2,column=2)
-        self.dato5=IntVar()
-        self.txz=Entry(marco1,textvariable=self.dato5).grid(row=3,column=2,pady=10,padx=10)
+        self.dato5=DoubleVar(value=None)
+        self.txz=Entry(marco1,textvariable=self.dato5,justify=CENTER).grid(row=3,column=2,pady=10,padx=10)
 
         #Segunda fila del tensor de esfuerzos
         Label(marco1,text="𝛕yx").grid(row=4,column=0)
-        self.dato6=IntVar()
-        self.tyx=Entry(marco1,textvariable=self.dato6).grid(row=5,column=0,pady=10,padx=10)
+        self.dato6=DoubleVar(value=None)
+        self.tyx=Entry(marco1,textvariable=self.dato6,justify=CENTER).grid(row=5,column=0,pady=10,padx=10)
+
         Label(marco1,text="σy").grid(row=4,column=1)
-        self.dato7=IntVar()
-        self.ry=Entry(marco1,textvariable=self.dato7).grid(row=5,column=1,pady=10,padx=10)
+        self.dato7=DoubleVar(value=None)
+        self.ry=Entry(marco1,textvariable=self.dato7,justify=CENTER).grid(row=5,column=1,pady=10,padx=10)
+
         Label(marco1,text="𝛕yz").grid(row=4,column=2)
-        self.dato8=IntVar()
-        self.tyz=Entry(marco1,textvariable=self.dato8).grid(row=5,column=2,pady=10,padx=10)
+        self.dato8=DoubleVar(value=None)
+        self.tyz=Entry(marco1,textvariable=self.dato8,justify=CENTER).grid(row=5,column=2,pady=10,padx=10)
 
         #Tercer fila del tensor de esfuerzos
         Label(marco1,text="𝛕zx").grid(row=6,column=0)
-        self.dato9=IntVar()
-        self.tzx=Entry(marco1,textvariable=self.dato9).grid(row=7,column=0,pady=10,padx=10)
-        Label(marco1,text="𝛕zy").grid(row=6,column=1)
-        self.dato10=IntVar()
-        self.tzy=Entry(marco1,textvariable=self.dato10).grid(row=7,column=1,pady=10,padx=10)
-        Label(marco1,text="σz").grid(row=6,column=2)
-        self.dato11=IntVar()
-        self.rz=Entry(marco1,textvariable=self.dato11).grid(row=7,column=2,pady=10,padx=10)
+        self.dato9=DoubleVar(value=None)
+        self.tzx=Entry(marco1,textvariable=self.dato9,justify=CENTER).grid(row=7,column=0,pady=10,padx=10)
 
-        self.boton1=tk.Button(self.ventana, text="Calcular", command=self.tensordeformacion())
+        Label(marco1,text="𝛕zy").grid(row=6,column=1)
+        self.dato10=DoubleVar(value=None)
+        self.tzy=Entry(marco1,textvariable=self.dato10,justify=CENTER).grid(row=7,column=1,pady=10,padx=10)
+
+        Label(marco1,text="σz").grid(row=6,column=2)
+        self.dato11=DoubleVar(value=None)
+        self.rz=Entry(marco1,textvariable=self.dato11,justify=CENTER).grid(row=7,column=2,pady=10,padx=10)
+
+        self.boton1=tk.Button(self.ventana, text="Calcular", command=self.tensordeformacion)
         self.boton1.grid(row=0, column=1)
 
         marco2=LabelFrame(self.ventana,text="Tensor de deformaciones (m/m): ")
@@ -69,106 +78,103 @@ class Aplicacion:
 
         #Primera fila del tensor de deformaciones
 
+        self.resultado1=DoubleVar()
         Label(marco2,text="εx").grid(row=8,column=0,sticky=W+E)
-        #Label(marco2).grid(row=9,column=0,pady=10,padx=10)
-        self.ex=Entry(marco2).grid(row=9,column=0,pady=10,padx=10)
+        #self.label1=Label(marco2,textvariable=self.resultado1).grid(row=9,column=0,pady=10,padx=10)
+        self.ex=Entry(marco2,textvariable=self.resultado1,state=DISABLED,justify=CENTER).grid(row=9,column=0,pady=10,padx=10)
 
+        self.resultado2=DoubleVar()
         Label(marco2,text="γxy/2").grid(row=8,column=1)
-        #Label(marco2).grid(row=9,column=1,pady=10,padx=10)
-        self.ecxy=Entry(marco2).grid(row=9,column=1,pady=10,padx=10)
+        #self.label2=Label(marco2).grid(row=9,column=1,pady=10,padx=10)
+        self.ecxy=Entry(marco2,textvariable=self.resultado2,state=DISABLED,justify=CENTER).grid(row=9,column=1,pady=10,padx=10)
 
+        self.resultado3=DoubleVar()
         Label(marco2,text="γxz/2").grid(row=8,column=2)
-        #Label(marco2).grid(row=9,column=2,pady=10,padx=10)
-        self.ecxz=Entry(marco2).grid(row=9,column=2,pady=10,padx=10)
+        #self.label3=Label(marco2).grid(row=9,column=2,pady=10,padx=10)
+        self.ecxz=Entry(marco2,textvariable=self.resultado3,state=DISABLED,justify=CENTER).grid(row=9,column=2,pady=10,padx=10)
 
         #Segunda fila del tensor de deformaciones
+
+        self.resultado4=DoubleVar()
         Label(marco2,text="γyx/2").grid(row=10,column=0)
-        #Label(marco2).grid(row=11,column=0,pady=10,padx=10)
-        self.ecyx=Entry(marco2).grid(row=11,column=0,pady=10,padx=10)
+        #self.label4=Label(marco2).grid(row=11,column=0,pady=10,padx=10)
+        self.ecyx=Entry(marco2,textvariable=self.resultado4,state=DISABLED,justify=CENTER).grid(row=11,column=0,pady=10,padx=10)
 
+        self.resultado5=DoubleVar()
         Label(marco2,text="εy").grid(row=10,column=1)
-        #Label(marco2).grid(row=11,column=1,pady=10,padx=10)
-        self.ey=Entry(marco2).grid(row=11,column=1,pady=10,padx=10)
+        #self.label5=Label(marco2).grid(row=11,column=1,pady=10,padx=10)
+        self.ey=Entry(marco2,textvariable=self.resultado5,state=DISABLED,justify=CENTER).grid(row=11,column=1,pady=10,padx=10)
 
+        self.resultado6=DoubleVar()
         Label(marco2,text="γyz/2").grid(row=10,column=2)
-        #Label(marco2).grid(row=11,column=2,pady=10,padx=10)
-        self.ecyz=Entry(marco2).grid(row=11,column=2,pady=10,padx=10)
+        #self.label6=Label(marco2).grid(row=11,column=2,pady=10,padx=10)
+        self.ecyz=Entry(marco2,textvariable=self.resultado6,state=DISABLED,justify=CENTER).grid(row=11,column=2,pady=10,padx=10)
 
         #Tercer fila del tensor de esfuerzos
+
+        self.resultado7=DoubleVar()
         Label(marco2,text="γzx/2").grid(row=12,column=0)
-        #Label(marco2).grid(row=13,column=0,pady=10,padx=10)
-        self.eczx=Entry(marco2).grid(row=13,column=0,pady=10,padx=10)
+        #self.label7=Label(marco2).grid(row=13,column=0,pady=10,padx=10)
+        self.eczx=Entry(marco2,textvariable=self.resultado7,state=DISABLED,justify=CENTER).grid(row=13,column=0,pady=10,padx=10)
 
+        self.resultado8=DoubleVar()
         Label(marco2,text="γzy/2").grid(row=12,column=1)
-        #Label(marco2).grid(row=13,column=1,pady=10,padx=10)
-        self.eczy=Entry(marco2).grid(row=13,column=1,pady=10,padx=10)
+        #self.label8=Label(marco2).grid(row=13,column=1,pady=10,padx=10)
+        self.eczy=Entry(marco2,textvariable=self.resultado8,state=DISABLED,justify=CENTER).grid(row=13,column=1,pady=10,padx=10)
 
+        self.resultado9=DoubleVar()
         Label(marco2,text="εz").grid(row=12,column=2)
-        #Label(marco2).grid(row=13,column=2,pady=10,padx=10)  
-        self.ez=Entry(marco2).grid(row=13,column=2,pady=10,padx=10)   
-
-        
+        #self.label9=Label(marco2).grid(row=13,column=2,pady=10,padx=10)  
+        self.ez=Entry(marco2,textvariable=self.resultado9,state=DISABLED,justify=CENTER).grid(row=13,column=2,pady=10,padx=10)   
 
     def tensordeformacion(self):
         
-        
-
         #Tensor de deformaciones
-        e=int(self.dato1.get())
-        v=int(self.dato2.get())
-        G=(e)/(2*(1+v)) #Modulo de rigidez 
-
-        rx=self.dato3
-        ry=self.dato7
-        rz=self.dato11
-
-        ex=(rx/e)-((v/e)*(ry+rz))
-        self.ex.configure(text=ex)
-
-        ey=(ry/e)-((v/e)*(rx+rz))
-        self.ey.configure(text=ey)
-
-        ez=(rz/e)-((v/e)*(ry+rx))
-        self.ez.configure(text=ez)
-
-        txy=self.dato4
-        ecxy=txy/(2*G)
-        self.ecxy.configure(text=ecxy)
-
-        txz=self.dato5
-        ecxz=txz/(2*G)
-        self.ecxz.configure(text=ecxz)
-
-
-
-
-
-        
-        
-
-        
-        
-
-        
 
         #Calculo de las deformaciones
 
-        
-        
-        
-        
-        
-        '''ecyx=tyx/(2*G)
+        e=float(self.dato1.get())
+        v=float(self.dato2.get())
+
+        G=(e)/(2*(1+v)) #Modulo de rigidez 
+
+        rx=float(self.dato3.get())
+        ry=float(self.dato7.get())
+        rz=float(self.dato11.get())
+
+        ex=(rx/e)-((v/e)*(ry+rz))
+        self.resultado1.set(ex)
+
+        ey=(ry/e)-((v/e)*(rx+rz))
+        self.resultado5.set(ey)
+
+        ez=(rz/e)-((v/e)*(ry+rx))
+        self.resultado9.set(ez)
+
+        txy=float(self.dato4.get())
+        ecxy=txy/(2*G)
+        self.resultado2.set(ecxy)
+
+        txz=float(self.dato5.get())
+        ecxz=txz/(2*G)
+        self.resultado3.set(ecxz)
+
+        tyx=float(self.dato6.get())
+        ecyx=tyx/(2*G)
+        self.resultado4.set(ecyx)
+
+        tyz=float(self.dato8.get())
         ecyz=tyz/(2*G)
+        self.resultado6.set(ecyz)
+
+        tzx=float(self.dato9.get())
         eczx=tzx/(2*G)
-        eczy=tzy/(2*G)'''
+        self.resultado7.set(eczx)
 
-          
-
-        
-
+        tzy=float(self.dato10.get())
+        eczy=tzy/(2*G)
+        self.resultado8.set(eczy)
     
-
 
 if __name__=="__main__":
     ventana=Tk()
