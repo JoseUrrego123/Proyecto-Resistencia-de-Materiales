@@ -4,7 +4,7 @@
 
 #Interfaz de usuario
 
-import tkinter as tk #Se importa para crear la ventana
+'''import tkinter as tk #Se importa para crear la ventana
 from tkinter import * #Se importa para crear el Label frame
 from tkinter import messagebox as mb # Se importa para crear los cuadros emergentes
 
@@ -133,6 +133,7 @@ class Aplicacion:
 
         #Calculo de las deformaciones
 
+    
         e=float(self.dato1.get())
         v=float(self.dato2.get())
 
@@ -179,12 +180,12 @@ class Aplicacion:
 if __name__=="__main__":
     ventana=Tk()
     aplicacion=Aplicacion(ventana)
-    ventana.mainloop()
+    ventana.mainloop()'''
 
 
 #Codigo plano
 
-'''import os
+import os
 import math as mt
 
 os.system("cls")
@@ -217,6 +218,7 @@ ecyx=tyx/(2*G)
 ecyz=tyz/(2*G)
 eczx=tzx/(2*G)
 eczy=tzy/(2*G)
+
 
 #Calculo de los angulos, maximos y minimos
 
@@ -371,4 +373,4 @@ print("Ej Normal = {:1.2f}".format(ejn))
 print("Gij Normal = {:1.2f}".format(gn))
 print("Ei Cortante = {:1.2f}".format(eic))
 print("Ej Cortante = {:1.2f}".format(ejc))
-print("Gij Cortante = {:1.2f}".format(gc))'''
+print("Gij Cortante = {:1.2f}".format(gc))
