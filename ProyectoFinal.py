@@ -15,9 +15,8 @@ class Aplicacion:
         
         self.ventana=ventana
         self.ventana.title("Transformación de esfuerzos y deformaciones ")
-        self.ventana.geometry("600x600")
         marco=LabelFrame(self.ventana,text="Introduzca las constantes")
-        marco.grid(row=0,column=0,pady=10,padx=10)
+        marco.grid(row=0,column=0,pady=5,padx=50)
 
         Label(marco,text="Ingrese el módulo elástico (Pa)").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
         self.dato1=DoubleVar(value=None)
@@ -35,10 +34,26 @@ class Aplicacion:
         self.datoj=StringVar()
         self.j=Entry(marco,textvariable=self.datoj,justify=CENTER).grid(row=3,column=1,pady=10,padx=10)
 
+        self.boton1=tk.Button(marco, text="Calcular", command=self.tensordeformacion_angulosprincipales)
+        self.boton1.grid(row=4, column=0, pady=10,sticky=W+E)
+
+        self.boton2=tk.Button(marco, text="Salir")
+        self.boton2.grid(row=4, column=1, pady=10,sticky=W+E) #falta darle formato
+
+        #Inseción de imagenes
+
+        self.imagen1=PhotoImage(file="Imagen1.png")
+        self.img1=Label(self.ventana, image=self.imagen1).grid(row=0,column=2,pady=5,padx=30)
+
+        self.imagen2=PhotoImage(file="Imagen2.png")
+        self.fimg2=Label(self.ventana, image=self.imagen2).grid(row=1,column=2,padx=30)
+
+
+
 
         #Tensor de esfuerzos
         marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Mpa)")
-        marco1.grid(row=1,column=0,pady=10,padx=10)
+        marco1.grid(row=1,column=0,pady=5,padx=50)
 
         #Primera fila del tensor de esfuerzos
         Label(marco1,text="σx").grid(row=0,column=0)
@@ -79,11 +94,8 @@ class Aplicacion:
         self.dato11=DoubleVar(value=None)
         self.rz=Entry(marco1,textvariable=self.dato11,justify=CENTER).grid(row=5,column=2,pady=10,padx=10)
 
-        '''self.boton1=tk.Button(self.ventana, text="Calcular", command=self.tensordeformacion_angulosprincipales)
-        self.boton1.grid(row=5, column=10)'''
-
         marco2=LabelFrame(self.ventana,text="Tensor de deformaciones (m/m)")
-        marco2.grid(row=2,column=0,pady=10,padx=10)
+        marco2.grid(row=2,column=0,pady=5,padx=50)
 
         #Primera fila del tensor de deformaciones
 
@@ -139,7 +151,7 @@ class Aplicacion:
         #Resultados de angulos para esfuerzos y deformaciones (falta programar funcionalidad)
 
         marco3=LabelFrame(self.ventana,text="Angulos (°)")
-        marco3.grid(row=0,column=5,pady=20,padx=100)
+        marco3.grid(row=0,column=5,pady=5,padx=50)
 
         self.angulo1=DoubleVar()
         Label(marco3,text="° del esfuerzo normal").grid(row=0,column=0,sticky=W+E)
@@ -164,7 +176,7 @@ class Aplicacion:
         #Resultados de esfuerzos principales (falta funcinalidad)
 
         marco4=LabelFrame(self.ventana,text="Esfuerzos principales (Mpa)")
-        marco4.grid(row=1,column=5,pady=20,padx=100)
+        marco4.grid(row=1,column=5,pady=5,padx=50)
 
         self.esfuerzo1=DoubleVar()
         Label(marco4,text="Ri Normal").grid(row=0,column=0,sticky=W+E)
@@ -199,7 +211,7 @@ class Aplicacion:
         #Resultados de deformaciones principales (falta funcinalidad)
 
         marco5=LabelFrame(self.ventana,text="Deformaciones principales")
-        marco5.grid(row=2,column=5,pady=20,padx=100)
+        marco5.grid(row=2,column=5,pady=5,padx=50)
 
         self.deformacion1=DoubleVar()
         Label(marco5,text="Ei Normal").grid(row=0,column=0,sticky=W+E)
@@ -230,6 +242,18 @@ class Aplicacion:
         Label(marco5,text="Gij Cortante").grid(row=4,column=1,sticky=W+E)
         #self.label1=Label(marco2,textvariable=self.resultado1).grid(row=9,column=0,pady=10,padx=10)
         self.de6=Entry(marco5,textvariable=self.deformacion6,state=DISABLED,justify=CENTER).grid(row=5,column=1,pady=10,padx=10)
+
+        marco6=LabelFrame(self.ventana,text="Autores")
+        marco6.grid(row=2,column=2,pady=5,padx=50)
+        Label(marco6,text="José Alejandro Urrego Pabon").grid(row=0,column=0,sticky=W+E)
+        Label(marco6,text="Juan Carlos Mercado Montes").grid(row=1,column=0,sticky=W+E)
+        Label(marco6,text="Samuel Alejandro Gallo").grid(row=2,column=0,sticky=W+E)
+        Label(marco6,text="Sebastian Grisales").grid(row=3,column=0,sticky=W+E)
+        Label(marco6,text="Agradecimientos: ").grid(row=4,column=0,sticky=W+E,pady=10)
+        Label(marco6,text="William Humberto Usuga ").grid(row=5,column=0,sticky=W+E)
+        Label(marco6,text="Edwin Lenin Chica Arrieta ").grid(row=6,column=0,sticky=W+E)
+
+
 
 
 
