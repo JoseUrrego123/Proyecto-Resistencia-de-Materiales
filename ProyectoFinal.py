@@ -310,14 +310,14 @@ class Aplicacion:
         self.resultado8.set(eczy)
 
         #Validación de los componentes del esfuerzo cortante
-        i=self.datoi.get()
-        j=self.datoj.get()
+        i=(self.datoi.get())
+        j=(self.datoj.get())
 
         if (i=="x" and j=="y"):
-            tetape=(mt.atan((txy*2)/(rx-ry))/2)*(180/mt.pi())
-            tetapd=(mt.atan((ecxy*2)/(ex-ey))/2)*(180/mt.pi())
-            tetase=(mt.atan(-(rx-ry)/(txy*2))/2)*(180/mt.pi())
-            tetasd=(mt.atan(-(ex-ey)/(ecxy*2))/2)*(180/mt.pi())
+            tetape=(mt.atan((txy*2)/(rx-ry))/2)*(180/mt.pi)
+            tetapd=(mt.atan((ecxy*2)/(ex-ey))/2)*(180/mt.pi)
+            tetase=(mt.atan(-(rx-ry)/(txy*2))/2)*(180/mt.pi)
+            tetasd=(mt.atan(-(ex-ey)/(ecxy*2))/2)*(180/mt.pi)
             
             rin=((rx+ry)/2)+((rx-ry)/2)*mt.cos(2*tetape)+(txy)*mt.sin(2*tetape)
             rjn=((rx+ry)/2)-((rx-ry)/2)*mt.cos(2*tetape)-(txy)*mt.sin(2*tetape)
@@ -335,10 +335,10 @@ class Aplicacion:
 
         elif((i=="x") and (j=="z")):
             
-            tetape=(mt.atan((txz*2)/(rx-rz))/2)*(180/mt.pi())
-            tetapd=(mt.atan((ecxz*2)/(ex-ez))/2)*(180/mt.pi())
-            tetase=(mt.atan(-(rx-rz)/(txz*2))/2)*(180/mt.pi())
-            tetasd=(mt.atan(-(ex-ez)/(ecxz*2))/2)*(180/mt.pi())
+            tetape=(mt.atan((txz*2)/(rx-rz))/2)*(180/mt.pi)
+            tetapd=(mt.atan((ecxz*2)/(ex-ez))/2)*(180/mt.pi)
+            tetase=(mt.atan(-(rx-rz)/(txz*2))/2)*(180/mt.pi)
+            tetasd=(mt.atan(-(ex-ez)/(ecxz*2))/2)*(180/mt.pi)
             
             rin=((rx+rz)/2)+((rx-rz)/2)*mt.cos(2*tetape)+(txz)*mt.sin(2*tetape)
             rjn=((rx+rz)/2)-((rx-rz)/2)*mt.cos(2*tetape)-(txz)*mt.sin(2*tetape)
@@ -356,10 +356,10 @@ class Aplicacion:
             
         elif((i=="y") and (j=="x")):
             
-            tetape=(mt.atan((tyx*2)/(ry-rx))/2)*(180/mt.pi())
-            tetapd=(mt.atan((ecyx*2)/(ey-ex))/2)*(180/mt.pi())
-            tetase=(mt.atan(-(ry-rx)/(tyx*2))/2)*(180/mt.pi())
-            tetasd=(mt.atan(-(ey-ex)/(ecyx*2))/2)*(180/mt.pi())
+            tetape=(mt.atan((tyx*2)/(ry-rx))/2)*(180/mt.pi)
+            tetapd=(mt.atan((ecyx*2)/(ey-ex))/2)*(180/mt.pi)
+            tetase=(mt.atan(-(ry-rx)/(tyx*2))/2)*(180/mt.pi)
+            tetasd=(mt.atan(-(ey-ex)/(ecyx*2))/2)*(180/mt.pi)
             
             rin=((ry+rx)/2)+((ry-rx)/2)*mt.cos(2*tetape)+(tyx)*mt.sin(2*tetape)
             rjn=((ry+rx)/2)-((ry-rx)/2)*mt.cos(2*tetape)-(tyx)*mt.sin(2*tetape)
@@ -377,10 +377,10 @@ class Aplicacion:
             
         elif((i=="y") and (j=="z")):
             
-            tetape=(mt.atan((tyz*2)/(ry-rz))/2)*(180/mt.pi())
-            tetapd=(mt.atan((ecyz*2)/(ey-ez))/2)*(180/mt.pi())
-            tetase=(mt.atan(-(ry-rz)/(tyz*2))/2)*(180/mt.pi())
-            tetasd=(mt.atan(-(ey-ez)/(ecyz*2))/2)*(180/mt.pi()) 
+            tetape=(mt.atan((tyz*2)/(ry-rz))/2)*(180/mt.pi)
+            tetapd=(mt.atan((ecyz*2)/(ey-ez))/2)*(180/mt.pi)
+            tetase=(mt.atan(-(ry-rz)/(tyz*2))/2)*(180/mt.pi)
+            tetasd=(mt.atan(-(ey-ez)/(ecyz*2))/2)*(180/mt.pi) 
             
             rin=((ry+rz)/2)+(((ry-rz)/2)*mt.cos(2*tetape))+(tyz)*mt.sin(2*tetape)
             rjn=((ry+rz)/2)-(((ry-rz)/2)*mt.cos(2*tetape))-(tyz)*mt.sin(2*tetape)
@@ -398,10 +398,10 @@ class Aplicacion:
             
         elif((i=="z") and (j=="x")):
             
-            tetape=(mt.atan((tzx*2)/(rz-rx))/2)*(180/mt.pi())
-            tetapd=(mt.atan((eczx*2)/(ez-ex))/2)*(180/mt.pi())
-            tetase=(mt.atan(-(rz-rx)/(tzx*2))/2)*(180/mt.pi())
-            tetasd=(mt.atan(-(ez-ex)/(eczx*2))/2)*(180/mt.pi())
+            tetape=(mt.atan((tzx*2)/(rz-rx))/2)*(180/mt.pi)
+            tetapd=(mt.atan((eczx*2)/(ez-ex))/2)*(180/mt.pi)
+            tetase=(mt.atan(-(rz-rx)/(tzx*2))/2)*(180/mt.pi)
+            tetasd=(mt.atan(-(ez-ex)/(eczx*2))/2)*(180/mt.pi)
             
             rin=((rz+rx)/2)+((rz-rx)/2)*mt.cos(2*tetape)+(tzx)*mt.sin(2*tetape)
             rjn=((rz+rx)/2)-((rz-rx)/2)*mt.cos(2*tetape)-(tzx)*mt.sin(2*tetape)
@@ -419,10 +419,10 @@ class Aplicacion:
             
         elif((i=="z") and (j=="y")):
             
-            tetape=(mt.atan((tzy*2)/(rz-ry))/2)*(180/mt.pi())
-            tetapd=(mt.atan((eczy*2)/(ez-ey))/2)*(180/mt.pi())
-            tetase=(mt.atan(-(rz-ry)/(tzy*2))/2)*(180/mt.pi())
-            tetasd=(mt.atan(-(ez-ey)/(eczy*2))/2)*(180/mt.pi())
+            tetape=(mt.atan((tzy*2)/(rz-ry))/2)*(180/mt.pi)
+            tetapd=(mt.atan((eczy*2)/(ez-ey))/2)*(180/mt.pi)
+            tetase=(mt.atan(-(rz-ry)/(tzy*2))/2)*(180/mt.pi)
+            tetasd=(mt.atan(-(ez-ey)/(eczy*2))/2)*(180/mt.pi)
             
             rin=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetape)+(tzy)*mt.sin(2*tetape)
             rjn=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetape)-(tzy)*mt.sin(2*tetape)
