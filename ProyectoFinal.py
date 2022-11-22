@@ -7,6 +7,7 @@
 import tkinter as tk #Se importa para crear la ventana
 from tkinter import * #Se importa para crear el Label frame
 from tkinter import messagebox as mb # Se importa para crear los cuadros emergentes
+import math as mt
 
 
 class Aplicacion: 
@@ -47,9 +48,6 @@ class Aplicacion:
 
         self.imagen2=PhotoImage(file="Imagen2.png")
         self.fimg2=Label(self.ventana, image=self.imagen2).grid(row=1,column=2,padx=30)
-
-
-
 
         #Tensor de esfuerzos
         marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Mpa)")
@@ -148,32 +146,34 @@ class Aplicacion:
         #self.label9=Label(marco2).grid(row=13,column=2,pady=10,padx=10)  
         self.ez=Entry(marco2,textvariable=self.resultado9,state=DISABLED,justify=CENTER).grid(row=5,column=2,pady=10,padx=10) 
 
-        #Resultados de angulos para esfuerzos y deformaciones (falta programar funcionalidad)
+        
 
-        marco3=LabelFrame(self.ventana,text="Angulos (°)")
+        #Resultados de angulos para esfuerzos y deformaciones 
+
+        marco3=LabelFrame(self.ventana,text="Angulos (Grados)")
         marco3.grid(row=0,column=5,pady=5,padx=50)
 
         self.angulo1=DoubleVar()
-        Label(marco3,text="° del esfuerzo normal").grid(row=0,column=0,sticky=W+E)
+        Label(marco3,text="θs Esfuerzo").grid(row=0,column=0,sticky=W+E)
         #self.label1=Label(marco2,textvariable=self.resultado1).grid(row=9,column=0,pady=10,padx=10)
         self.an1=Entry(marco3,textvariable=self.angulo1,state=DISABLED,justify=CENTER).grid(row=1,column=0,pady=10,padx=10)
 
         self.angulo2=DoubleVar()
-        Label(marco3,text="° del esfuerzo cortante").grid(row=2,column=0)
+        Label(marco3,text="θp Esfuerzo").grid(row=2,column=0)
         #self.label2=Label(marco2).grid(row=9,column=1,pady=10,padx=10)
         self.an2=Entry(marco3,textvariable=self.angulo2,state=DISABLED,justify=CENTER).grid(row=3,column=0,pady=10,padx=10)
 
         self.angulo3=DoubleVar()
-        Label(marco3,text="° de la deformación normal").grid(row=0,column=1,sticky=W+E)
+        Label(marco3,text="θs Deformación").grid(row=0,column=1,sticky=W+E)
         #self.label1=Label(marco2,textvariable=self.resultado1).grid(row=9,column=0,pady=10,padx=10)
         self.an3=Entry(marco3,textvariable=self.angulo3,state=DISABLED,justify=CENTER).grid(row=1,column=1,pady=10,padx=10)
 
         self.angulo4=DoubleVar()
-        Label(marco3,text="° de la deformación cortante").grid(row=2,column=1)
+        Label(marco3,text="θp Deformación").grid(row=2,column=1)
         #self.label2=Label(marco2).grid(row=9,column=1,pady=10,padx=10)
         self.an4=Entry(marco3,textvariable=self.angulo4,state=DISABLED,justify=CENTER).grid(row=3,column=1,pady=10,padx=10)
 
-        #Resultados de esfuerzos principales (falta funcinalidad)
+        #Resultados de esfuerzos principales 
 
         marco4=LabelFrame(self.ventana,text="Esfuerzos principales (Mpa)")
         marco4.grid(row=1,column=5,pady=5,padx=50)
@@ -248,10 +248,10 @@ class Aplicacion:
         Label(marco6,text="José Alejandro Urrego Pabon").grid(row=0,column=0,sticky=W+E)
         Label(marco6,text="Juan Carlos Mercado Montes").grid(row=1,column=0,sticky=W+E)
         Label(marco6,text="Samuel Alejandro Gallo").grid(row=2,column=0,sticky=W+E)
-        Label(marco6,text="Sebastian Grisales").grid(row=3,column=0,sticky=W+E)
+        Label(marco6,text="Sebastian Grisales Cadavid").grid(row=3,column=0,sticky=W+E)
         Label(marco6,text="Agradecimientos: ").grid(row=4,column=0,sticky=W+E,pady=10)
-        Label(marco6,text="William Humberto Usuga ").grid(row=5,column=0,sticky=W+E)
-        Label(marco6,text="Edwin Lenin Chica Arrieta ").grid(row=6,column=0,sticky=W+E)
+        Label(marco6,text="William Humberto Usuga Giraldo").grid(row=5,column=0,sticky=W+E)
+        Label(marco6,text="Edwin Lenin Chica Arrieta").grid(row=6,column=0,sticky=W+E)
 
 
 
@@ -313,7 +313,150 @@ class Aplicacion:
         i=self.datoi.get()
         j=self.datoj.get()
 
+        if (i=="x" and j=="y"):
+            tetape=(mt.atan((txy*2)/(rx-ry))/2)*(180/mt.pi())
+            tetapd=(mt.atan((ecxy*2)/(ex-ey))/2)*(180/mt.pi())
+            tetase=(mt.atan(-(rx-ry)/(txy*2))/2)*(180/mt.pi())
+            tetasd=(mt.atan(-(ex-ey)/(ecxy*2))/2)*(180/mt.pi())
+            
+            rin=((rx+ry)/2)+((rx-ry)/2)*mt.cos(2*tetape)+(txy)*mt.sin(2*tetape)
+            rjn=((rx+ry)/2)-((rx-ry)/2)*mt.cos(2*tetape)-(txy)*mt.sin(2*tetape)
+            tn=-((rx-ry)/2)*mt.sin(2*tetape)+(txy)*mt.cos(2*tetape)
+            ric=((rx+ry)/2)+((rx-ry)/2)*mt.cos(2*tetase)+(txy)*mt.sin(2*tetase)
+            rjc=((rx+ry)/2)-((rx-ry)/2)*mt.cos(2*tetase)-(txy)*mt.sin(2*tetase)
+            tc=-((rx-ry)/2)*mt.sin(2*tetase)+(txy)*mt.cos(2*tetase)
+            
+            ein=((ex+ey)/2)+((ex-ey)/2)*mt.cos(2*tetapd)+(ecxy)*mt.sin(2*tetapd)
+            ejn=((ex+ey)/2)-((ex-ey)/2)*mt.cos(2*tetapd)-(ecxy)*mt.sin(2*tetapd)
+            gn=-((ex-ey)/2)*mt.sin(2*tetapd)+(ecxy)*mt.cos(2*tetapd)
+            eic=((ex+ey)/2)+((ex-ey)/2)*mt.cos(2* tetasd)+(ecxy)*mt.sin(2* tetasd)
+            ejc=((ex+ey)/2)-((ex-ey)/2)*mt.cos(2* tetasd)-(ecxy)*mt.sin(2* tetasd)
+            gc=-((ex-ey)/2)*mt.sin(2* tetasd)+(ecxy)*mt.cos(2* tetasd)
+
+        elif((i=="x") and (j=="z")):
+            
+            tetape=(mt.atan((txz*2)/(rx-rz))/2)*(180/mt.pi())
+            tetapd=(mt.atan((ecxz*2)/(ex-ez))/2)*(180/mt.pi())
+            tetase=(mt.atan(-(rx-rz)/(txz*2))/2)*(180/mt.pi())
+            tetasd=(mt.atan(-(ex-ez)/(ecxz*2))/2)*(180/mt.pi())
+            
+            rin=((rx+rz)/2)+((rx-rz)/2)*mt.cos(2*tetape)+(txz)*mt.sin(2*tetape)
+            rjn=((rx+rz)/2)-((rx-rz)/2)*mt.cos(2*tetape)-(txz)*mt.sin(2*tetape)
+            tn=-((rx-rz)/2)*mt.sin(2*tetape)+(txz)*mt.cos(2*tetape)
+            ric=((rx+rz)/2)+((rx-rz)/2)*mt.cos(2*tetase)+(txz)*mt.sin(2*tetase)
+            rjc=((rx+rz)/2)-((rx-rz)/2)*mt.cos(2*tetase)-(txz)*mt.sin(2*tetase)
+            tc=-((rx-rz)/2)*mt.sin(2*tetase)+(txz)*mt.cos(2*tetase)
+            
+            ein=((ex+ez)/2)+((ex-ez)/2)*mt.cos(2*tetapd)+(ecxz)*mt.sin(2*tetapd)
+            ejn=((ex+ez)/2)-((ex-ez)/2)*mt.cos(2*tetapd)-(ecxz)*mt.sin(2*tetapd)
+            gn=-((ex-ez)/2)*mt.sin(2*tetapd)+(ecxz)*mt.cos(2*tetapd)
+            eic=((ex+ez)/2)+((ex-ez)/2)*mt.cos(2* tetasd)+(ecxz)*mt.sin(2* tetasd)
+            ejc=((ex+ez)/2)-((ex-ez)/2)*mt.cos(2* tetasd)-(ecxz)*mt.sin(2* tetasd)
+            gc=-((ex-ez)/2)*mt.sin(2* tetasd)+(ecxz)*mt.cos(2* tetasd)
+            
+        elif((i=="y") and (j=="x")):
+            
+            tetape=(mt.atan((tyx*2)/(ry-rx))/2)*(180/mt.pi())
+            tetapd=(mt.atan((ecyx*2)/(ey-ex))/2)*(180/mt.pi())
+            tetase=(mt.atan(-(ry-rx)/(tyx*2))/2)*(180/mt.pi())
+            tetasd=(mt.atan(-(ey-ex)/(ecyx*2))/2)*(180/mt.pi())
+            
+            rin=((ry+rx)/2)+((ry-rx)/2)*mt.cos(2*tetape)+(tyx)*mt.sin(2*tetape)
+            rjn=((ry+rx)/2)-((ry-rx)/2)*mt.cos(2*tetape)-(tyx)*mt.sin(2*tetape)
+            tn=-((ry-rx)/2)*mt.sin(2*tetape)+(tyx)*mt.cos(2*tetape)
+            ric=((ry+rx)/2)+((ry-rx)/2)*mt.cos(2*tetase)+(tyx)*mt.sin(2*tetase)
+            rjc=((ry+rx)/2)-((ry-rx)/2)*mt.cos(2*tetase)-(tyx)*mt.sin(2*tetase)
+            tc=-((ry-rx)/2)*mt.sin(2*tetase)+(tyx)*mt.cos(2*tetase)
+            
+            ein=((ey+ex)/2)+((ey-ex)/2)*mt.cos(2*tetapd)+(ecyx)*mt.sin(2*tetapd)
+            ejn=((ey+ex)/2)-((ey-ex)/2)*mt.cos(2*tetapd)-(ecyx)*mt.sin(2*tetapd)
+            gn=-((ey-ex)/2)*mt.sin(2*tetapd)+(ecyx)*mt.cos(2*tetapd)
+            eic=((ey+ex)/2)+((ey-ex)/2)*mt.cos(2* tetasd)+(ecyx)*mt.sin(2* tetasd)
+            ejc=((ey+ex)/2)-((ey-ex)/2)*mt.cos(2* tetasd)-(ecyx)*mt.sin(2* tetasd)
+            gc=-((ey-ex)/2)*mt.sin(2* tetasd)+(ecyx)*mt.cos(2* tetasd)
+            
+        elif((i=="y") and (j=="z")):
+            
+            tetape=(mt.atan((tyz*2)/(ry-rz))/2)*(180/mt.pi())
+            tetapd=(mt.atan((ecyz*2)/(ey-ez))/2)*(180/mt.pi())
+            tetase=(mt.atan(-(ry-rz)/(tyz*2))/2)*(180/mt.pi())
+            tetasd=(mt.atan(-(ey-ez)/(ecyz*2))/2)*(180/mt.pi()) 
+            
+            rin=((ry+rz)/2)+(((ry-rz)/2)*mt.cos(2*tetape))+(tyz)*mt.sin(2*tetape)
+            rjn=((ry+rz)/2)-(((ry-rz)/2)*mt.cos(2*tetape))-(tyz)*mt.sin(2*tetape)
+            tn=-((ry-rz)/2)*mt.sin(2*tetape)+(tyz)*mt.cos(2*tetape)
+            ric=((ry+rz)/2)+((ry-rz)/2)*mt.cos(2*tetase)+(tyz)*mt.sin(2*tetase)
+            rjc=((ry+rz)/2)-((ry-rz)/2)*mt.cos(2*tetase)-(tyz)*mt.sin(2*tetase)
+            tc=-((ry-rz)/2)*mt.sin(2*tetase)+(tyz)*mt.cos(2*tetase)
+            
+            ein=((ey+ez)/2)+((ey-ez)/2)*mt.cos(2*tetapd)+(ecyz)*mt.sin(2*tetapd)
+            ejn=((ey+ez)/2)-((ey-ez)/2)*mt.cos(2*tetapd)-(ecyz)*mt.sin(2*tetapd)
+            gn=-((ey-ez)/2)*mt.sin(2*tetapd)+(ecyz)*mt.cos(2*tetapd)
+            eic=((ey+ez)/2)+((ey-ez)/2)*mt.cos(2* tetasd)+(ecyz)*mt.sin(2* tetasd)
+            ejc=((ey+ez)/2)-((ey-ez)/2)*mt.cos(2* tetasd)-(ecyz)*mt.sin(2* tetasd)
+            gc=-((ey-ez)/2)*mt.sin(2* tetasd)+(ecyz)*mt.cos(2* tetasd)
+            
+        elif((i=="z") and (j=="x")):
+            
+            tetape=(mt.atan((tzx*2)/(rz-rx))/2)*(180/mt.pi())
+            tetapd=(mt.atan((eczx*2)/(ez-ex))/2)*(180/mt.pi())
+            tetase=(mt.atan(-(rz-rx)/(tzx*2))/2)*(180/mt.pi())
+            tetasd=(mt.atan(-(ez-ex)/(eczx*2))/2)*(180/mt.pi())
+            
+            rin=((rz+rx)/2)+((rz-rx)/2)*mt.cos(2*tetape)+(tzx)*mt.sin(2*tetape)
+            rjn=((rz+rx)/2)-((rz-rx)/2)*mt.cos(2*tetape)-(tzx)*mt.sin(2*tetape)
+            tn=-((rz-rx)/2)*mt.sin(2*tetape)+(tzx)*mt.cos(2*tetape)
+            ric=((rz+rx)/2)+((rz-rx)/2)*mt.cos(2*tetase)+(tzx)*mt.sin(2*tetase)
+            rjc=((rz+rx)/2)-((rz-rx)/2)*mt.cos(2*tetase)-(tzx)*mt.sin(2*tetase)
+            tc=-((rz-rx)/2)*mt.sin(2*tetase)+(tzx)*mt.cos(2*tetase)
+            
+            ein=((ez+ex)/2)+((ez-ex)/2)*mt.cos(2*tetapd)+(eczx)*mt.sin(2*tetapd)
+            ejn=((ez+ex)/2)-((ez-ex)/2)*mt.cos(2*tetapd)-(eczx)*mt.sin(2*tetapd)
+            gn=-((ez-ex)/2)*mt.sin(2*tetapd)+(eczx)*mt.cos(2*tetapd)
+            eic=((ez+ex)/2)+((ez-ex)/2)*mt.cos(2* tetasd)+(eczx)*mt.sin(2* tetasd)
+            ejc=((ez+ex)/2)-((ez-ex)/2)*mt.cos(2* tetasd)-(eczx)*mt.sin(2* tetasd)
+            gc=-((ez-ex)/2)*mt.sin(2* tetasd)+(eczx)*mt.cos(2* tetasd)
+            
+        elif((i=="z") and (j=="y")):
+            
+            tetape=(mt.atan((tzy*2)/(rz-ry))/2)*(180/mt.pi())
+            tetapd=(mt.atan((eczy*2)/(ez-ey))/2)*(180/mt.pi())
+            tetase=(mt.atan(-(rz-ry)/(tzy*2))/2)*(180/mt.pi())
+            tetasd=(mt.atan(-(ez-ey)/(eczy*2))/2)*(180/mt.pi())
+            
+            rin=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetape)+(tzy)*mt.sin(2*tetape)
+            rjn=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetape)-(tzy)*mt.sin(2*tetape)
+            tn=-((rz-ry)/2)*mt.sin(2*tetape)+(tzy)*mt.cos(2*tetape)
+            ric=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetase)+(tzy)*mt.sin(2*tetase)
+            rjc=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetase)-(tzy)*mt.sin(2*tetase)
+            tc=-((rz-ry)/2)*mt.sin(2*tetase)+(tzy)*mt.cos(2*tetase)
+            
+            ein=((ez+ey)/2)+((ez-ey)/2)*mt.cos(2*tetapd)+(eczy)*mt.sin(2*tetapd)
+            ejn=((ez+ey)/2)-((ez-ey)/2)*mt.cos(2*tetapd)-(eczy)*mt.sin(2*tetapd)
+            gn=-((ez-ey)/2)*mt.sin(2*tetapd)+(eczy)*mt.cos(2*tetapd)
+            eic=((ez+ey)/2)+((ez-ey)/2)*mt.cos(2* tetasd)+(eczy)*mt.sin(2* tetasd)
+            ejc=((ez+ey)/2)-((ez-ey)/2)*mt.cos(2* tetasd)-(eczy)*mt.sin(2* tetasd)
+            gc=-((ez-ey)/2)*mt.sin(2* tetasd)+(eczy)*mt.cos(2* tetasd)
     
+        self.angulo1.set(tetase)
+        self.angulo2.set(tetape)
+        self.angulo3.set(tetasd)
+        self.angulo4.set(tetapd)
+
+        self.esfuerzo1.set(rin)
+        self.esfuerzo2.set(rjn)
+        self.esfuerzo3.set(tn)
+        self.esfuerzo4.set(ric)
+        self.esfuerzo5.set(rjc)
+        self.esfuerzo6.set(tc)
+
+        self.deformacion1.set(ein)
+        self.deformacion2.set(ejn)
+        self.deformacion3.set(gn)
+        self.deformacion4.set(eic)
+        self.deformacion5.set(ejc)
+        self.deformacion6.set(gc)
+
 
 if __name__=="__main__":
     ventana=Tk()
@@ -321,194 +464,3 @@ if __name__=="__main__":
     ventana.mainloop()
 
 
-#Codigo plano
-
-'''import os
-import math as mt
-
-os.system("cls")
-e=eval(input("Ingrese el modulo elastico (pa): "))
-v=eval(input("Ingrese el coeficiente de poison: "))
-G=(e)/(2*(1+v)) #Modulo de rigidez
-
-#Componentes de esfuerzo (Normales y cortantes)
-#La idea es poner un entry (Tkinter) en cada caso y que el usuario las llene todas
-
-rx=eval(input("Ingrese el esfuerzo normal en x (Mpa)= "))
-ry=eval(input("Ingrese el esfuerzo normal en y (Mpa)= "))
-rz=eval(input("Ingrese el esfuerzo normal en z (Mpa)= "))
-
-txy=eval(input("Ingrese el esfuerzo cortante en xy (Mpa)= "))
-txz=eval(input("Ingrese el esfuerzo cortante en xz (Mpa)= "))
-tyx=eval(input("Ingrese el esfuerzo cortante en yx (Mpa)= "))
-tyz=eval(input("Ingrese el esfuerzo cortante en yz (Mpa)= "))
-tzx=eval(input("Ingrese el esfuerzo cortante en zx (Mpa)= "))
-tzy=eval(input("Ingrese el esfuerzo cortante en zy (Mpa)= "))
-
-#Calculo de las deformaciones
-
-ex=(rx/e)-((v/e)*(ry+rz))
-ey=(ry/e)-((v/e)*(rx+rz))
-ez=(rz/e)-((v/e)*(ry+rx))
-ecxy=txy/(2*G)
-ecxz=txz/(2*G)
-ecyx=tyx/(2*G)
-ecyz=tyz/(2*G)
-eczx=tzx/(2*G)
-eczy=tzy/(2*G)
-
-
-#Calculo de los angulos, maximos y minimos
-
-i=str(input("Ingrese el valor de i= "))
-j=str(input("Ingrese el valor de j= "))
-
-if (i=="x" and j=="y"):
-    tetape=(mt.atan((txy*2)/(rx-ry))/2)
-    tetapd=(mt.atan((ecxy*2)/(ex-ey))/2)
-    tetase=(mt.atan(-(rx-ry)/(txy*2))/2)
-    tetasd=(mt.atan(-(ex-ey)/(ecxy*2))/2)
-    
-    rin=((rx+ry)/2)+((rx-ry)/2)*mt.cos(2*tetape)+(txy)*mt.sin(2*tetape)
-    rjn=((rx+ry)/2)-((rx-ry)/2)*mt.cos(2*tetape)-(txy)*mt.sin(2*tetape)
-    tn=-((rx-ry)/2)*mt.sin(2*tetape)+(txy)*mt.cos(2*tetape)
-    ric=((rx+ry)/2)+((rx-ry)/2)*mt.cos(2*tetase)+(txy)*mt.sin(2*tetase)
-    rjc=((rx+ry)/2)-((rx-ry)/2)*mt.cos(2*tetase)-(txy)*mt.sin(2*tetase)
-    tc=-((rx-ry)/2)*mt.sin(2*tetase)+(txy)*mt.cos(2*tetase)
-    
-    ein=((ex+ey)/2)+((ex-ey)/2)*mt.cos(2*tetapd)+(ecxy)*mt.sin(2*tetapd)
-    ejn=((ex+ey)/2)-((ex-ey)/2)*mt.cos(2*tetapd)-(ecxy)*mt.sin(2*tetapd)
-    gn=-((ex-ey)/2)*mt.sin(2*tetapd)+(ecxy)*mt.cos(2*tetapd)
-    eic=((ex+ey)/2)+((ex-ey)/2)*mt.cos(2* tetasd)+(ecxy)*mt.sin(2* tetasd)
-    ejc=((ex+ey)/2)-((ex-ey)/2)*mt.cos(2* tetasd)-(ecxy)*mt.sin(2* tetasd)
-    gc=-((ex-ey)/2)*mt.sin(2* tetasd)+(ecxy)*mt.cos(2* tetasd)
-
-elif((i=="x") and (j=="z")):
-    
-    tetape=(mt.atan((txz*2)/(rx-rz))/2)
-    tetapd=(mt.atan((ecxz*2)/(ex-ez))/2)
-    tetase=(mt.atan(-(rx-rz)/(txz*2))/2)
-    tetasd=(mt.atan(-(ex-ez)/(ecxz*2))/2)
-    
-    rin=((rx+rz)/2)+((rx-rz)/2)*mt.cos(2*tetape)+(txz)*mt.sin(2*tetape)
-    rjn=((rx+rz)/2)-((rx-rz)/2)*mt.cos(2*tetape)-(txz)*mt.sin(2*tetape)
-    tn=-((rx-rz)/2)*mt.sin(2*tetape)+(txz)*mt.cos(2*tetape)
-    ric=((rx+rz)/2)+((rx-rz)/2)*mt.cos(2*tetase)+(txz)*mt.sin(2*tetase)
-    rjc=((rx+rz)/2)-((rx-rz)/2)*mt.cos(2*tetase)-(txz)*mt.sin(2*tetase)
-    tc=-((rx-rz)/2)*mt.sin(2*tetase)+(txz)*mt.cos(2*tetase)
-    
-    ein=((ex+ez)/2)+((ex-ez)/2)*mt.cos(2*tetapd)+(ecxz)*mt.sin(2*tetapd)
-    ejn=((ex+ez)/2)-((ex-ez)/2)*mt.cos(2*tetapd)-(ecxz)*mt.sin(2*tetapd)
-    gn=-((ex-ez)/2)*mt.sin(2*tetapd)+(ecxz)*mt.cos(2*tetapd)
-    eic=((ex+ez)/2)+((ex-ez)/2)*mt.cos(2* tetasd)+(ecxz)*mt.sin(2* tetasd)
-    ejc=((ex+ez)/2)-((ex-ez)/2)*mt.cos(2* tetasd)-(ecxz)*mt.sin(2* tetasd)
-    gc=-((ex-ez)/2)*mt.sin(2* tetasd)+(ecxz)*mt.cos(2* tetasd)
-    
-elif((i=="y") and (j=="x")):
-    
-    tetape=(mt.atan((tyx*2)/(ry-rx))/2)
-    tetapd=(mt.atan((ecyx*2)/(ey-ex))/2)
-    tetase=(mt.atan(-(ry-rx)/(tyx*2))/2)
-    tetasd=(mt.atan(-(ey-ex)/(ecyx*2))/2)
-    
-    rin=((ry+rx)/2)+((ry-rx)/2)*mt.cos(2*tetape)+(tyx)*mt.sin(2*tetape)
-    rjn=((ry+rx)/2)-((ry-rx)/2)*mt.cos(2*tetape)-(tyx)*mt.sin(2*tetape)
-    tn=-((ry-rx)/2)*mt.sin(2*tetape)+(tyx)*mt.cos(2*tetape)
-    ric=((ry+rx)/2)+((ry-rx)/2)*mt.cos(2*tetase)+(tyx)*mt.sin(2*tetase)
-    rjc=((ry+rx)/2)-((ry-rx)/2)*mt.cos(2*tetase)-(tyx)*mt.sin(2*tetase)
-    tc=-((ry-rx)/2)*mt.sin(2*tetase)+(tyx)*mt.cos(2*tetase)
-    
-    ein=((ey+ex)/2)+((ey-ex)/2)*mt.cos(2*tetapd)+(ecyx)*mt.sin(2*tetapd)
-    ejn=((ey+ex)/2)-((ey-ex)/2)*mt.cos(2*tetapd)-(ecyx)*mt.sin(2*tetapd)
-    gn=-((ey-ex)/2)*mt.sin(2*tetapd)+(ecyx)*mt.cos(2*tetapd)
-    eic=((ey+ex)/2)+((ey-ex)/2)*mt.cos(2* tetasd)+(ecyx)*mt.sin(2* tetasd)
-    ejc=((ey+ex)/2)-((ey-ex)/2)*mt.cos(2* tetasd)-(ecyx)*mt.sin(2* tetasd)
-    gc=-((ey-ex)/2)*mt.sin(2* tetasd)+(ecyx)*mt.cos(2* tetasd)
-    
-elif((i=="y") and (j=="z")):
-    
-    tetape=(mt.atan((tyz*2)/(ry-rz))/2)
-    tetapd=(mt.atan((ecyz*2)/(ey-ez))/2)
-    tetase=(mt.atan(-(ry-rz)/(tyz*2))/2)
-    tetasd=(mt.atan(-(ey-ez)/(ecyz*2))/2)  
-    
-    rin=((ry+rz)/2)+(((ry-rz)/2)*mt.cos(2*tetape))+(tyz)*mt.sin(2*tetape)
-    rjn=((ry+rz)/2)-(((ry-rz)/2)*mt.cos(2*tetape))-(tyz)*mt.sin(2*tetape)
-    tn=-((ry-rz)/2)*mt.sin(2*tetape)+(tyz)*mt.cos(2*tetape)
-    ric=((ry+rz)/2)+((ry-rz)/2)*mt.cos(2*tetase)+(tyz)*mt.sin(2*tetase)
-    rjc=((ry+rz)/2)-((ry-rz)/2)*mt.cos(2*tetase)-(tyz)*mt.sin(2*tetase)
-    tc=-((ry-rz)/2)*mt.sin(2*tetase)+(tyz)*mt.cos(2*tetase)
-    
-    ein=((ey+ez)/2)+((ey-ez)/2)*mt.cos(2*tetapd)+(ecyz)*mt.sin(2*tetapd)
-    ejn=((ey+ez)/2)-((ey-ez)/2)*mt.cos(2*tetapd)-(ecyz)*mt.sin(2*tetapd)
-    gn=-((ey-ez)/2)*mt.sin(2*tetapd)+(ecyz)*mt.cos(2*tetapd)
-    eic=((ey+ez)/2)+((ey-ez)/2)*mt.cos(2* tetasd)+(ecyz)*mt.sin(2* tetasd)
-    ejc=((ey+ez)/2)-((ey-ez)/2)*mt.cos(2* tetasd)-(ecyz)*mt.sin(2* tetasd)
-    gc=-((ey-ez)/2)*mt.sin(2* tetasd)+(ecyz)*mt.cos(2* tetasd)
-    
-elif((i=="z") and (j=="x")):
-    
-    tetape=(mt.atan((tzx*2)/(rz-rx))/2)
-    tetapd=(mt.atan((eczx*2)/(ez-ex))/2)
-    tetase=(mt.atan(-(rz-rx)/(tzx*2))/2)
-    tetasd=(mt.atan(-(ez-ex)/(eczx*2))/2)
-    
-    rin=((rz+rx)/2)+((rz-rx)/2)*mt.cos(2*tetape)+(tzx)*mt.sin(2*tetape)
-    rjn=((rz+rx)/2)-((rz-rx)/2)*mt.cos(2*tetape)-(tzx)*mt.sin(2*tetape)
-    tn=-((rz-rx)/2)*mt.sin(2*tetape)+(tzx)*mt.cos(2*tetape)
-    ric=((rz+rx)/2)+((rz-rx)/2)*mt.cos(2*tetase)+(tzx)*mt.sin(2*tetase)
-    rjc=((rz+rx)/2)-((rz-rx)/2)*mt.cos(2*tetase)-(tzx)*mt.sin(2*tetase)
-    tc=-((rz-rx)/2)*mt.sin(2*tetase)+(tzx)*mt.cos(2*tetase)
-    
-    ein=((ez+ex)/2)+((ez-ex)/2)*mt.cos(2*tetapd)+(eczx)*mt.sin(2*tetapd)
-    ejn=((ez+ex)/2)-((ez-ex)/2)*mt.cos(2*tetapd)-(eczx)*mt.sin(2*tetapd)
-    gn=-((ez-ex)/2)*mt.sin(2*tetapd)+(eczx)*mt.cos(2*tetapd)
-    eic=((ez+ex)/2)+((ez-ex)/2)*mt.cos(2* tetasd)+(eczx)*mt.sin(2* tetasd)
-    ejc=((ez+ex)/2)-((ez-ex)/2)*mt.cos(2* tetasd)-(eczx)*mt.sin(2* tetasd)
-    gc=-((ez-ex)/2)*mt.sin(2* tetasd)+(eczx)*mt.cos(2* tetasd)
-    
-elif((i=="z") and (j=="y")):
-    
-    tetape=(mt.atan((tzy*2)/(rz-ry))/2)
-    tetapd=(mt.atan((eczy*2)/(ez-ey))/2)
-    tetase=(mt.atan(-(rz-ry)/(tzy*2))/2)
-    tetasd=(mt.atan(-(ez-ey)/(eczy*2))/2)
-    
-    rin=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetape)+(tzy)*mt.sin(2*tetape)
-    rjn=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetape)-(tzy)*mt.sin(2*tetape)
-    tn=-((rz-ry)/2)*mt.sin(2*tetape)+(tzy)*mt.cos(2*tetape)
-    ric=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetase)+(tzy)*mt.sin(2*tetase)
-    rjc=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetase)-(tzy)*mt.sin(2*tetase)
-    tc=-((rz-ry)/2)*mt.sin(2*tetase)+(tzy)*mt.cos(2*tetase)
-    
-    ein=((ez+ey)/2)+((ez-ey)/2)*mt.cos(2*tetapd)+(eczy)*mt.sin(2*tetapd)
-    ejn=((ez+ey)/2)-((ez-ey)/2)*mt.cos(2*tetapd)-(eczy)*mt.sin(2*tetapd)
-    gn=-((ez-ey)/2)*mt.sin(2*tetapd)+(eczy)*mt.cos(2*tetapd)
-    eic=((ez+ey)/2)+((ez-ey)/2)*mt.cos(2* tetasd)+(eczy)*mt.sin(2* tetasd)
-    ejc=((ez+ey)/2)-((ez-ey)/2)*mt.cos(2* tetasd)-(eczy)*mt.sin(2* tetasd)
-    gc=-((ez-ey)/2)*mt.sin(2* tetasd)+(eczy)*mt.cos(2* tetasd)
-
-#  Impresion de los datos
-
-print("El angulo de esfuerzo normal es (grados): {:1.2f}".format(tetape*(180/mt.pi)))
-print("El angulo de esfuerzo cortante es (grados): {:1.2f}".format(tetase*(180/mt.pi)))
-print("El angulo de deformacion normal es (grados): {:1.2f}".format(tetapd*(180/mt.pi)))
-print("El angulo de deformacion cortante es (grados): {:1.2f}".format(tetasd*(180/mt.pi)))
-
-#ESFUERZOS PRINCIPALES
-
-print("Ri Normal (Mpa)= {:1.2f}".format(rin))
-print("Rj Normal (Mpa)= {:1.2f}".format(rjn))
-print("Tij Normal (Mpa)= {:1.2f}".format(tn))
-print("Ri Cortante (Mpa)= {:1.2f}".format(ric))
-print("Rj Cortante (Mpa)= {:1.2f}".format(rjc))
-print("Tij Cortante (Mpa)= {:1.2f}".format(tc))
-
-#DEFORMACIONES PRICIPALES
-
-print("Ei Normal = {:1.2f}".format(ein))
-print("Ej Normal = {:1.2f}".format(ejn))
-print("Gij Normal = {:1.2f}".format(gn))
-print("Ei Cortante = {:1.2f}".format(eic))
-print("Ej Cortante = {:1.2f}".format(ejc))
-print("Gij Cortante = {:1.2f}".format(gc))'''
