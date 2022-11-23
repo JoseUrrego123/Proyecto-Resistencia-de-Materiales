@@ -23,6 +23,7 @@ class Aplicacion:
         self.dato1=DoubleVar(value=None)
         self.me=Entry(marco,textvariable=self.dato1,justify=CENTER).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
 
+
         Label(marco,text="Ingrese el coeficiente de Poison").grid(row=1,column=0)
         self.dato2=DoubleVar(value=None)
         self.po=Entry(marco,textvariable=self.dato2,justify=CENTER).grid(row=1,column=1,pady=10,padx=10) #Coeficiente de Poison
@@ -36,10 +37,8 @@ class Aplicacion:
         self.j=Entry(marco,textvariable=self.datoj,justify=CENTER).grid(row=3,column=1,pady=10,padx=10)
 
         self.boton1=tk.Button(marco, text="Calcular", command=self.tensordeformacion_angulosprincipales)
-        self.boton1.grid(row=4, column=0, pady=10,sticky=W+E)
+        self.boton1.grid(row=4, pady=10,sticky=W+E,columnspan=2)
 
-        self.boton2=tk.Button(marco, text="Salir")
-        self.boton2.grid(row=4, column=1, pady=10,sticky=W+E) #falta darle formato
 
         #Inseción de imagenes
 
@@ -208,7 +207,7 @@ class Aplicacion:
         #self.label1=Label(marco2,textvariable=self.resultado1).grid(row=9,column=0,pady=10,padx=10)
         self.es6=Entry(marco4,textvariable=self.esfuerzo6,state=DISABLED,justify=CENTER).grid(row=5,column=1,pady=10,padx=10)
 
-        #Resultados de deformaciones principales (falta funcinalidad)
+        #Resultados de deformaciones principales 
 
         marco5=LabelFrame(self.ventana,text="Deformaciones principales")
         marco5.grid(row=2,column=5,pady=5,padx=50)
@@ -253,71 +252,77 @@ class Aplicacion:
         Label(marco6,text="William Humberto Usuga Giraldo").grid(row=5,column=0,sticky=W+E)
         Label(marco6,text="Edwin Lenin Chica Arrieta").grid(row=6,column=0,sticky=W+E)
 
-
-
-
-
-
-
-
     def tensordeformacion_angulosprincipales(self):
         
         #Tensor de deformaciones
 
         #Calculo de las deformaciones
 
-    
-        e=float(self.dato1.get())
-        v=float(self.dato2.get())
-
-        G=(e)/(2*(1+v)) #Modulo de rigidez 
-
-        rx=float(self.dato3.get())
-        ry=float(self.dato7.get())
-        rz=float(self.dato11.get())
-
-        ex=(rx/e)-((v/e)*(ry+rz))
-        self.resultado1.set(ex)
-
-        ey=(ry/e)-((v/e)*(rx+rz))
-        self.resultado5.set(ey)
-
-        ez=(rz/e)-((v/e)*(ry+rx))
-        self.resultado9.set(ez)
-
-        txy=float(self.dato4.get())
-        ecxy=txy/(2*G)
-        self.resultado2.set(ecxy)
-
-        txz=float(self.dato5.get())
-        ecxz=txz/(2*G)
-        self.resultado3.set(ecxz)
-
-        tyx=float(self.dato6.get())
-        ecyx=tyx/(2*G)
-        self.resultado4.set(ecyx)
-
-        tyz=float(self.dato8.get())
-        ecyz=tyz/(2*G)
-        self.resultado6.set(ecyz)
-
-        tzx=float(self.dato9.get())
-        eczx=tzx/(2*G)
-        self.resultado7.set(eczx)
-
-        tzy=float(self.dato10.get())
-        eczy=tzy/(2*G)
-        self.resultado8.set(eczy)
+        try:
+            if type(float(self.dato1.get()))==float and type(float(self.dato1.get()))==float:
+                e=float(self.dato1.get())
+                v=float(self.dato2.get())
+                G=(e)/(2*(1+v)) #Modulo de rigidez 
+        except Exception as err:
+            mb.showerror(message="Los datos del modulo elastico y el coeficiente de Poison deben ser numericos", title="Error modulo elastico o coeficiente de Poison")
 
         #Validación de los componentes del esfuerzo cortante
+        
+        try:
+            if (type(float(self.dato3.get()))==float and type(float(self.dato7.get()))==float and type(float(self.dato11.get()))==float 
+                and type(float(self.dato4.get()))==float and type(float(self.dato5.get()))==float and type(float(self.dato6.get()))==float
+                and type(float(self.dato8.get()))==float and type(float(self.dato9.get()))==float and type(float(self.dato10.get()))==float):
+
+                    rx=float(self.dato3.get())
+                    ry=float(self.dato7.get())
+                    rz=float(self.dato11.get())
+
+                    ex=(rx/e)-((v/e)*(ry+rz))
+                    self.resultado1.set(ex)
+
+                    ey=(ry/e)-((v/e)*(rx+rz))
+                    self.resultado5.set(ey)
+
+                    ez=(rz/e)-((v/e)*(ry+rx))
+                    self.resultado9.set(ez)
+
+                    txy=float(self.dato4.get())
+                    ecxy=txy/(2*G)
+                    self.resultado2.set(ecxy)
+
+                    txz=float(self.dato5.get())
+                    ecxz=txz/(2*G)
+                    self.resultado3.set(ecxz)
+
+                    tyx=float(self.dato6.get())
+                    ecyx=tyx/(2*G)
+                    self.resultado4.set(ecyx)
+
+                    tyz=float(self.dato8.get())
+                    ecyz=tyz/(2*G)
+                    self.resultado6.set(ecyz)
+
+                    tzx=float(self.dato9.get())
+                    eczx=tzx/(2*G)
+                    self.resultado7.set(eczx)
+
+                    tzy=float(self.dato10.get())
+                    eczy=tzy/(2*G)
+                    self.resultado8.set(eczy)
+
+        except Exception as err:
+            mb.showerror(message="Los esfuerzos deben ser datos numericos y no deben estar vacios, ponga (0.0 en caso de no haber dato)",title="Error tensor de esfuerzos")
+        
+        boleano=False
+       
         i=(self.datoi.get())
         j=(self.datoj.get())
 
         if (i=="x" and j=="y"):
-            tetape=(mt.atan((txy*2)/(rx-ry))/2)*(180/mt.pi)
-            tetapd=(mt.atan((ecxy*2)/(ex-ey))/2)*(180/mt.pi)
-            tetase=(mt.atan(-(rx-ry)/(txy*2))/2)*(180/mt.pi)
-            tetasd=(mt.atan(-(ex-ey)/(ecxy*2))/2)*(180/mt.pi)
+            tetape=(mt.atan((txy*2)/(rx-ry))/2)
+            tetapd=(mt.atan((ecxy*2)/(ex-ey))/2)
+            tetase=(mt.atan(-(rx-ry)/(txy*2))/2)
+            tetasd=(mt.atan(-(ex-ey)/(ecxy*2))/2)
             
             rin=((rx+ry)/2)+((rx-ry)/2)*mt.cos(2*tetape)+(txy)*mt.sin(2*tetape)
             rjn=((rx+ry)/2)-((rx-ry)/2)*mt.cos(2*tetape)-(txy)*mt.sin(2*tetape)
@@ -332,13 +337,14 @@ class Aplicacion:
             eic=((ex+ey)/2)+((ex-ey)/2)*mt.cos(2* tetasd)+(ecxy)*mt.sin(2* tetasd)
             ejc=((ex+ey)/2)-((ex-ey)/2)*mt.cos(2* tetasd)-(ecxy)*mt.sin(2* tetasd)
             gc=-((ex-ey)/2)*mt.sin(2* tetasd)+(ecxy)*mt.cos(2* tetasd)
+            boleano=True
 
         elif((i=="x") and (j=="z")):
             
-            tetape=(mt.atan((txz*2)/(rx-rz))/2)*(180/mt.pi)
-            tetapd=(mt.atan((ecxz*2)/(ex-ez))/2)*(180/mt.pi)
-            tetase=(mt.atan(-(rx-rz)/(txz*2))/2)*(180/mt.pi)
-            tetasd=(mt.atan(-(ex-ez)/(ecxz*2))/2)*(180/mt.pi)
+            tetape=(mt.atan((txz*2)/(rx-rz))/2)
+            tetapd=(mt.atan((ecxz*2)/(ex-ez))/2)
+            tetase=(mt.atan(-(rx-rz)/(txz*2))/2)
+            tetasd=(mt.atan(-(ex-ez)/(ecxz*2))/2)
             
             rin=((rx+rz)/2)+((rx-rz)/2)*mt.cos(2*tetape)+(txz)*mt.sin(2*tetape)
             rjn=((rx+rz)/2)-((rx-rz)/2)*mt.cos(2*tetape)-(txz)*mt.sin(2*tetape)
@@ -353,13 +359,14 @@ class Aplicacion:
             eic=((ex+ez)/2)+((ex-ez)/2)*mt.cos(2* tetasd)+(ecxz)*mt.sin(2* tetasd)
             ejc=((ex+ez)/2)-((ex-ez)/2)*mt.cos(2* tetasd)-(ecxz)*mt.sin(2* tetasd)
             gc=-((ex-ez)/2)*mt.sin(2* tetasd)+(ecxz)*mt.cos(2* tetasd)
-            
+            boleano=True
+    
         elif((i=="y") and (j=="x")):
-            
-            tetape=(mt.atan((tyx*2)/(ry-rx))/2)*(180/mt.pi)
-            tetapd=(mt.atan((ecyx*2)/(ey-ex))/2)*(180/mt.pi)
-            tetase=(mt.atan(-(ry-rx)/(tyx*2))/2)*(180/mt.pi)
-            tetasd=(mt.atan(-(ey-ex)/(ecyx*2))/2)*(180/mt.pi)
+    
+            tetape=(mt.atan((tyx*2)/(ry-rx))/2)
+            tetapd=(mt.atan((ecyx*2)/(ey-ex))/2)
+            tetase=(mt.atan(-(ry-rx)/(tyx*2))/2)
+            tetasd=(mt.atan(-(ey-ex)/(ecyx*2))/2)
             
             rin=((ry+rx)/2)+((ry-rx)/2)*mt.cos(2*tetape)+(tyx)*mt.sin(2*tetape)
             rjn=((ry+rx)/2)-((ry-rx)/2)*mt.cos(2*tetape)-(tyx)*mt.sin(2*tetape)
@@ -374,13 +381,14 @@ class Aplicacion:
             eic=((ey+ex)/2)+((ey-ex)/2)*mt.cos(2* tetasd)+(ecyx)*mt.sin(2* tetasd)
             ejc=((ey+ex)/2)-((ey-ex)/2)*mt.cos(2* tetasd)-(ecyx)*mt.sin(2* tetasd)
             gc=-((ey-ex)/2)*mt.sin(2* tetasd)+(ecyx)*mt.cos(2* tetasd)
+            boleano=True
             
         elif((i=="y") and (j=="z")):
             
-            tetape=(mt.atan((tyz*2)/(ry-rz))/2)*(180/mt.pi)
-            tetapd=(mt.atan((ecyz*2)/(ey-ez))/2)*(180/mt.pi)
-            tetase=(mt.atan(-(ry-rz)/(tyz*2))/2)*(180/mt.pi)
-            tetasd=(mt.atan(-(ey-ez)/(ecyz*2))/2)*(180/mt.pi) 
+            tetape=(mt.atan((tyz*2)/(ry-rz))/2)
+            tetapd=(mt.atan((ecyz*2)/(ey-ez))/2)
+            tetase=(mt.atan(-(ry-rz)/(tyz*2))/2)
+            tetasd=(mt.atan(-(ey-ez)/(ecyz*2))/2)
             
             rin=((ry+rz)/2)+(((ry-rz)/2)*mt.cos(2*tetape))+(tyz)*mt.sin(2*tetape)
             rjn=((ry+rz)/2)-(((ry-rz)/2)*mt.cos(2*tetape))-(tyz)*mt.sin(2*tetape)
@@ -395,13 +403,14 @@ class Aplicacion:
             eic=((ey+ez)/2)+((ey-ez)/2)*mt.cos(2* tetasd)+(ecyz)*mt.sin(2* tetasd)
             ejc=((ey+ez)/2)-((ey-ez)/2)*mt.cos(2* tetasd)-(ecyz)*mt.sin(2* tetasd)
             gc=-((ey-ez)/2)*mt.sin(2* tetasd)+(ecyz)*mt.cos(2* tetasd)
-            
+            boleano=True
+    
         elif((i=="z") and (j=="x")):
-            
-            tetape=(mt.atan((tzx*2)/(rz-rx))/2)*(180/mt.pi)
-            tetapd=(mt.atan((eczx*2)/(ez-ex))/2)*(180/mt.pi)
-            tetase=(mt.atan(-(rz-rx)/(tzx*2))/2)*(180/mt.pi)
-            tetasd=(mt.atan(-(ez-ex)/(eczx*2))/2)*(180/mt.pi)
+    
+            tetape=(mt.atan((tzx*2)/(rz-rx))/2)
+            tetapd=(mt.atan((eczx*2)/(ez-ex))/2)
+            tetase=(mt.atan(-(rz-rx)/(tzx*2))/2)
+            tetasd=(mt.atan(-(ez-ex)/(eczx*2))/2)
             
             rin=((rz+rx)/2)+((rz-rx)/2)*mt.cos(2*tetape)+(tzx)*mt.sin(2*tetape)
             rjn=((rz+rx)/2)-((rz-rx)/2)*mt.cos(2*tetape)-(tzx)*mt.sin(2*tetape)
@@ -416,47 +425,73 @@ class Aplicacion:
             eic=((ez+ex)/2)+((ez-ex)/2)*mt.cos(2* tetasd)+(eczx)*mt.sin(2* tetasd)
             ejc=((ez+ex)/2)-((ez-ex)/2)*mt.cos(2* tetasd)-(eczx)*mt.sin(2* tetasd)
             gc=-((ez-ex)/2)*mt.sin(2* tetasd)+(eczx)*mt.cos(2* tetasd)
-            
+            boleano=True
+    
         elif((i=="z") and (j=="y")):
-            
-            tetape=(mt.atan((tzy*2)/(rz-ry))/2)*(180/mt.pi)
-            tetapd=(mt.atan((eczy*2)/(ez-ey))/2)*(180/mt.pi)
-            tetase=(mt.atan(-(rz-ry)/(tzy*2))/2)*(180/mt.pi)
-            tetasd=(mt.atan(-(ez-ey)/(eczy*2))/2)*(180/mt.pi)
+    
+            tetape=(mt.atan((tzy*2)/(rz-ry))/2)
+            an1=round(tetape*(180/mt.pi),2)
+            tetapd=(mt.atan((eczy*2)/(ez-ey))/2)
+            an2=round(tetapd*(180/mt.pi),2)
+            tetase=(mt.atan(-(rz-ry)/(tzy*2))/2)
+            an3=round(tetase*(180/mt.pi),2)
+            tetasd=(mt.atan(-(ez-ey)/(eczy*2))/2)
+            an4=round(tetasd*(180/mt.pi),2)
             
             rin=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetape)+(tzy)*mt.sin(2*tetape)
+            rinapprox=round(rin,2)
             rjn=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetape)-(tzy)*mt.sin(2*tetape)
+            rjnapprox=round(rjn,2)
             tn=-((rz-ry)/2)*mt.sin(2*tetape)+(tzy)*mt.cos(2*tetape)
+            tnapprox=round(tn,2)
             ric=((rz+ry)/2)+((rz-ry)/2)*mt.cos(2*tetase)+(tzy)*mt.sin(2*tetase)
+            ricapprox=round(ric,2)
             rjc=((rz+ry)/2)-((rz-ry)/2)*mt.cos(2*tetase)-(tzy)*mt.sin(2*tetase)
+            rjcapprox=round(rjc,2)
             tc=-((rz-ry)/2)*mt.sin(2*tetase)+(tzy)*mt.cos(2*tetase)
+            tcapprox=round(tc,2)
             
             ein=((ez+ey)/2)+((ez-ey)/2)*mt.cos(2*tetapd)+(eczy)*mt.sin(2*tetapd)
+            einapprox=round(ein,2)
             ejn=((ez+ey)/2)-((ez-ey)/2)*mt.cos(2*tetapd)-(eczy)*mt.sin(2*tetapd)
+            ejnapprox=round(ejn,2)
             gn=-((ez-ey)/2)*mt.sin(2*tetapd)+(eczy)*mt.cos(2*tetapd)
+            gnapprox=round(gn,2)
             eic=((ez+ey)/2)+((ez-ey)/2)*mt.cos(2* tetasd)+(eczy)*mt.sin(2* tetasd)
+            eicapprox=round(eic,2)
             ejc=((ez+ey)/2)-((ez-ey)/2)*mt.cos(2* tetasd)-(eczy)*mt.sin(2* tetasd)
+            ejcapprox=round(ejc,2)
             gc=-((ez-ey)/2)*mt.sin(2* tetasd)+(eczy)*mt.cos(2* tetasd)
+            gcapprox=round(gc,2)
+
+            boleano=True
+        else:
+            mb.showerror(message="La opcion digitada para el valor de i o j no es valida", title="Error i o j")
+        
+
+        if boleano==True:
+            self.angulo1.set(an3)
+            self.angulo2.set(an1)
+            self.angulo3.set(an4)
+            self.angulo4.set(an2)
+
+            self.esfuerzo1.set(rinapprox)
+            self.esfuerzo2.set(rjnapprox)
+            self.esfuerzo3.set(tnapprox)
+            self.esfuerzo4.set(ricapprox)
+            self.esfuerzo5.set(rjcapprox)
+            self.esfuerzo6.set(tcapprox)
+
+            self.deformacion1.set(einapprox)
+            self.deformacion2.set(ejnapprox)
+            self.deformacion3.set(gnapprox)
+            self.deformacion4.set(eicapprox)
+            self.deformacion5.set(ejcapprox)
+            self.deformacion6.set(gcapprox)
+
     
-        self.angulo1.set(tetase)
-        self.angulo2.set(tetape)
-        self.angulo3.set(tetasd)
-        self.angulo4.set(tetapd)
-
-        self.esfuerzo1.set(rin)
-        self.esfuerzo2.set(rjn)
-        self.esfuerzo3.set(tn)
-        self.esfuerzo4.set(ric)
-        self.esfuerzo5.set(rjc)
-        self.esfuerzo6.set(tc)
-
-        self.deformacion1.set(ein)
-        self.deformacion2.set(ejn)
-        self.deformacion3.set(gn)
-        self.deformacion4.set(eic)
-        self.deformacion5.set(ejc)
-        self.deformacion6.set(gc)
-
+        
+        
 
 if __name__=="__main__":
     ventana=Tk()
