@@ -8,18 +8,8 @@ import tkinter as tk #Se importa para crear la ventana
 from tkinter import * #Se importa para crear el Label frame
 from tkinter import messagebox as mb # Se importa para crear los cuadros emergentes
 import math as mt
-import os
-import sys
 
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
 
-    return os.path.join(base_path, relative_path)
 
 
 class Aplicacion: 
@@ -54,15 +44,12 @@ class Aplicacion:
 
         #Inseción de imagenes
 
-        path=resource_path("Imagen1.png")
-        self.imagen=PhotoImage(file=path)
-        self.imagen1=Label(self.ventana, image=self.imagen).grid(row=0,column=2,pady=5,padx=30)
-        
-        path1=resource_path("Imagen2.png")
-        self.imagen2=PhotoImage(file=path1)
-        self.imagen3=Label(self.ventana, image=self.imagen2).grid(row=1,column=2,pady=5,padx=30)
+        self.imagen1=PhotoImage(file="Imagen1.png")
+        self.img1=Label(self.ventana, image=self.imagen1).grid(row=0,column=2,pady=5,padx=30)
 
-        
+        self.imagen2=PhotoImage(file="Imagen2.png")
+        self.fimg2=Label(self.ventana, image=self.imagen2).grid(row=1,column=2,padx=30)
+
         #Tensor de esfuerzos
         marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Mpa)")
         marco1.grid(row=1,column=0,pady=5,padx=50)
