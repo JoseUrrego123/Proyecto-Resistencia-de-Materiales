@@ -18,7 +18,7 @@ class Aplicacion:
         marco=LabelFrame(self.ventana,text="Introduzca las constantes")
         marco.grid(row=0,column=0,pady=5,padx=50)
 
-        Label(marco,text="Ingrese el módulo elástico (Gpa)").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
+        Label(marco,text="Ingrese el módulo elástico (Pa)").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
         self.dato1=DoubleVar(value=None)
         self.me=Entry(marco,textvariable=self.dato1,justify=CENTER).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
 
@@ -48,7 +48,7 @@ class Aplicacion:
         self.fimg2=Label(self.ventana, image=self.imagen2).grid(row=1,column=2,padx=30)
 
         #Tensor de esfuerzos
-        marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Mpa)")
+        marco1=LabelFrame(self.ventana,text="Introduzca los datos en el tensor de esfuerzos (Pa)")
         marco1.grid(row=1,column=0,pady=5,padx=50)
 
         #Primera fila del tensor de esfuerzos
@@ -173,7 +173,7 @@ class Aplicacion:
 
         #Resultados de esfuerzos principales 
 
-        marco4=LabelFrame(self.ventana,text="Esfuerzos principales (Mpa)")
+        marco4=LabelFrame(self.ventana,text="Esfuerzos principales (Pa)")
         marco4.grid(row=1,column=5,pady=5,padx=50)
 
         self.esfuerzo1=DoubleVar()
