@@ -9,9 +9,6 @@ from tkinter import * #Se importa para crear el Label frame
 from tkinter import messagebox as mb # Se importa para crear los cuadros emergentes
 import math as mt
 
-
-
-
 class Aplicacion: 
 
     def __init__(self,ventana):
@@ -21,7 +18,7 @@ class Aplicacion:
         marco=LabelFrame(self.ventana,text="Introduzca las constantes")
         marco.grid(row=0,column=0,pady=5,padx=50)
 
-        Label(marco,text="Ingrese el módulo elástico (Pa)").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
+        Label(marco,text="Ingrese el módulo elástico (Gpa)").grid(row=0,column=0) #Recordar pasar el codigo plano a Gigapascales
         self.dato1=DoubleVar(value=None)
         self.me=Entry(marco,textvariable=self.dato1,justify=CENTER).grid(row=0,column=1,pady=10,padx=10) #Modulo elastico
 
