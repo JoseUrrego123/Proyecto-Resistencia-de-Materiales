@@ -4,9 +4,9 @@ import os
 import math as mt
 
 os.system("cls")
-e=eval(input("Ingrese el modulo elastico (pa): "))
+e=eval(input("Ingrese el modulo elastico (Gpa): "))
 v=eval(input("Ingrese el coeficiente de poison: "))
-G=(e)/(2*(1+v)) #Modulo de rigidez
+print(G=(e)/(2*(1+v))) #Modulo de rigidez
 
 #Componentes de esfuerzo (Normales y cortantes)
 #La idea es poner un entry (Tkinter) en cada caso y que el usuario las llene todas
